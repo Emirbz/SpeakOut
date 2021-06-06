@@ -1,0 +1,19 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  display: block;
+  width: 100%;
+  color: white;
+
+  flex-shrink: 0;
+}
+p {
+  font-family: Lato;
+  padding-right: 20%;
+}
