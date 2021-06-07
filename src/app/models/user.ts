@@ -1,25 +1,42 @@
-
-
 export class User {
-  Id: string;
-  UserTypeId: number;
-  Civility: string;
-  Password: string;
-  Email: string;
-  PhoneNumber: number;
-  firstName: string;
-  lastName: string;
-  Adresse: string;
+  id: string;
+  civility: string;
+  email: string;
+  password: string;
+  dateOfBirth: Date;
+  gender: string;
+  isActive: boolean;
+  phoneNumber: number;
+  isValid: boolean;
+  personnality: string;
+  userProviderId: string;
+  normalizedUserName: string;
+  normalizedEmail: string;
+  emailConfirmed: boolean;
+  passwordHash: string;
+  securityStamp: string;
+  concurrencyStamp: string;
+  phoneNumberConfirmed: boolean;
+  twoFactorEnabled: boolean;
+  lockoutEnd: string;
+  lockoutEnabled: boolean;
+  accessFailedCount: 0;
+  userType: string;
+  adresse: string;
   city: string;
   country: string;
-  AboutMe: string;
-  DateOfBirth: Date;
-  Gender: string;
-
-  Image: File;
+  aboutMe: string;
   photoUrl: string;
-  UserName: string;
-  IsActive: boolean;
+  firstName: string;
+  lastName: string;
+  aspNetUserClaims: [];
+  aspNetUserLogins: [];
+  aspNetUserRoles: [];
+  aspNetUserTokens: [];
+  jobOffer: [];
+  jobApply: [];
+  files: [];
+  userName: string
 
 
   constructor() {

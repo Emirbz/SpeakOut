@@ -1,27 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { NavbarComponent } from './Compnent/navbar/navbar.component';
-import { FooterComponent } from './Compnent/footer/footer.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {CompnentModule} from './Compnent/compnent.module';
-import { HomeComponent } from './home/home.component';
-import {HomeModule} from './home/home.module';
+import {HomeComponent} from './home/home.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import {GoogleLoginProvider, SocialAuthService, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import {DashboardComponent} from './Site/dashboard/dashboard.component';
+import {UserProfileComponent} from './Site/user-profile/user-profile.component';
+import {CompaniesListComponent} from './Site/Companies/companies-list/companies-list.component';
+import {CompaniesDetailsComponent} from './Site/Companies/companies-details/companies-details.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    DashboardComponent,
     UserProfileComponent,
+    CompaniesListComponent,
+    CompaniesDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ export function tokenGetter() {
     }),
   ],
 
-  providers: [SocialAuthService,{
+  providers: [SocialAuthService, {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -53,4 +56,5 @@ export function tokenGetter() {
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

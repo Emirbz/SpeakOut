@@ -1,6 +1,8 @@
-import { Routes } from '@angular/router';
-import {UserProfileComponent} from '../user-profile/user-profile.component';
-
+import {Routes} from '@angular/router';
+import {UserProfileComponent} from '../Site/user-profile/user-profile.component';
+import {DashboardComponent} from '../Site/dashboard/dashboard.component';
+import {CompaniesListComponent} from '../Site/Companies/companies-list/companies-list.component';
+import {CompaniesDetailsComponent} from '../Site/Companies/companies-details/companies-details.component';
 
 
 export const HomeRoutes: Routes = [
@@ -28,5 +30,9 @@ export const HomeRoutes: Routes = [
   //      component: JobPostComponent
   //     }]
   //     },
-  { path: 'user-profile',   component: UserProfileComponent , data: {title: 'user Profile'}},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'user-profile', component: UserProfileComponent, data: {title: 'user Profile'}},
+  {path: 'companies', component: CompaniesListComponent},
+  {path: 'companies/:id', component: CompaniesDetailsComponent},
+  {path: 'home', component: DashboardComponent},
 ];
