@@ -1,18 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {CommonModule,} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    children: [{
-      path: '',
-      loadChildren: './home/home.module#HomeModule'
-    }]
-  },
+  {path: '', loadChildren: () => import('src/app/home/home.module').then(m => m.HomeModule)}
+
 
 ];
 

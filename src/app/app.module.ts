@@ -12,6 +12,9 @@ import {DashboardComponent} from './Site/dashboard/dashboard.component';
 import {UserProfileComponent} from './Site/user-profile/user-profile.component';
 import {CompaniesListComponent} from './Site/Companies/companies-list/companies-list.component';
 import {CompaniesDetailsComponent} from './Site/Companies/companies-details/companies-details.component';
+import {CreateOfferComponent} from './Site/Jobs/create-offer/create-offer.component';
+import {JobsListComponent} from './Site/Jobs/jobs-list/jobs-list.component';
+import {JobDetailsComponent} from './Site/Jobs/job-details/job-details.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -24,7 +27,10 @@ export function tokenGetter() {
     DashboardComponent,
     UserProfileComponent,
     CompaniesListComponent,
-    CompaniesDetailsComponent
+    CompaniesDetailsComponent,
+    CreateOfferComponent,
+    JobsListComponent,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,
