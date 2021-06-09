@@ -15,6 +15,8 @@ import {CompaniesDetailsComponent} from './Site/Companies/companies-details/comp
 import {CreateOfferComponent} from './Site/Jobs/create-offer/create-offer.component';
 import {JobsListComponent} from './Site/Jobs/jobs-list/jobs-list.component';
 import {JobDetailsComponent} from './Site/Jobs/job-details/job-details.component';
+import {CreateCompanyComponent} from './Site/Companies/create-company/create-company.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -30,7 +32,8 @@ export function tokenGetter() {
     CompaniesDetailsComponent,
     CreateOfferComponent,
     JobsListComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    CreateCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
       }//
     }),
+    ReactiveFormsModule,
   ],
 
   providers: [SocialAuthService, {

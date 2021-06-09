@@ -79,7 +79,6 @@ export class NavbarComponent implements OnInit {
       .subscribe(res => {
           // localStorage.setItem('user', JSON.stringify(this.user));
           localStorage.setItem('token', res.token);
-          localStorage.setItem('userResponse', res.user.id);
           localStorage.setItem('user', JSON.stringify(res.user));
           this._authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
           this._router.navigate([this._returnUrl]);

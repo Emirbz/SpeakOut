@@ -1,17 +1,41 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {EnvironmentUrlService} from './environment-url.service';
-import {StorageService} from './storage.service';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import {SocialAuthService} from 'angularx-social-login';
+import {Observable} from 'rxjs';
+import {Company} from '../models/Company';
+import {apiConfig} from '../config/apiConfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-  constructor(private _http: HttpClient, private _envUrl: EnvironmentUrlService, private storageService: StorageService,
-              private _jwtHelper: JwtHelperService, private _externalAuthService: SocialAuthService) {
+  companyApi = apiConfig.apis.company;
+
+  constructor(private _http: HttpClient) {
   }
+
+  getAllCompanies(): Observable<Company[]> {
+    return this._http.get<Company[]>(this.companyApi);
+  }
+
+  getCompanyById(companyId: string): Observable<Company> {
+    return this._http.get<Company>(`${this.companyApi}/byId?id?=${companyId}`);
+  }
+
+  createCompany(newCompany: Company): Observable<Company> {
+
+    return this._http.post<Company>(this.companyApi, newCompany);
+  }
+
+  updateCompany(updatedCompany: Company): Observable<Company> {
+
+    return this._http.put<Company>(this.companyApi, updatedCompany);
+  }
+
+  deleteCompany(companyId: string): Observable<Company> {
+
+    return this._http.delete<Company>(`${this.companyApi}/byId?id?=${companyId}`);
+  }
+
 
 }
