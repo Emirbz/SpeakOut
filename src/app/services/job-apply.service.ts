@@ -24,7 +24,7 @@ export class JobApplyService {
 
   createJobApply(newJobApply: JobApply): Observable<JobApply> {
 
-    return this._http.post<JobApply>(this.jobApplyApi, newJobApply);
+    return this._http.post<JobApply>(`${this.jobApplyApi}/create`, newJobApply);
   }
 
   updateJobApply(updatedJobApply: JobApply): Observable<JobApply> {

@@ -24,7 +24,7 @@ export class CompanyService {
 
   createCompany(newCompany: Company): Observable<Company> {
 
-    return this._http.post<Company>(this.companyApi, newCompany);
+    return this._http.post<Company>(`${this.companyApi}/create`, newCompany);
   }
 
   updateCompany(updatedCompany: Company): Observable<Company> {

@@ -23,8 +23,7 @@ export class JobOfferService {
   }
 
   createJobOffer(newJobOffer: JobOffer): Observable<JobOffer> {
-
-    return this._http.post<JobOffer>(this.jobOfferApi, newJobOffer);
+    return this._http.post<JobOffer>(`${this.jobOfferApi}/create?title=${newJobOffer.title}&localisation=${newJobOffer.localisation}&salaire=${newJobOffer.salaire}&userId=${newJobOffer.userId}&jobId=${newJobOffer.jobId}&categorie=${newJobOffer.categorie}&jobDescription=${newJobOffer.jobDescription}&`, {});
   }
 
   updateJobOffer(updatedJobOffer: JobOffer): Observable<JobOffer> {
