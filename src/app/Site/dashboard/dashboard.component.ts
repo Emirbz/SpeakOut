@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {JobOfferService} from '../../services/job-offer.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +7,15 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  listJobOffer: any;
 
-  constructor() { }
+  constructor( private JobOffer: JobOfferService ) { }
 
   ngOnInit(): void {
+    this.JobOffer.getAllJobOffers().subscribe( data => {
+
+      this.listJobOffer = data;
+    });
   }
 
 }
