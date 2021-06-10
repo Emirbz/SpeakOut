@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
     this._authService.authChanged.subscribe(res => {
       this.isUserAuthenticated = res;
     })
-    this.isUserLoggedIn();
 
 
   }
@@ -39,19 +38,9 @@ export class NavbarComponent implements OnInit {
     this._socialAuthService.authState.subscribe(user => {
       this.isExternalAuth = user != null;
     })
-
+    this.getLoggedUser();
   }
 
-
-  isUserLoggedIn() {
-    const user = JSON.parse(<string>localStorage.getItem('user'));
-    if (user) {
-      this.loggedUser = user;
-      this.isLoggedIn = true;
-    }
-
-
-  }
 
   externalLogin() {
     this.showError = false;
@@ -74,6 +63,17 @@ export class NavbarComponent implements OnInit {
     this._router.navigate(['/']);
   }
 
+  isUserLoggedIn() {
+    const user = JSON.parse(<string>localStorage.getItem('user'));
+    if (user) {
+      this._authService.setLoggedUser(user);
+      this.loggedUser = user;
+      this.isLoggedIn = true;
+    }
+
+
+  }
+
   private validateExternalAuth(externalAuth: ExternalAuthDto) {
     this._authService.externalLogin('ExternalLogin', externalAuth)
       .subscribe(res => {
@@ -82,13 +82,24 @@ export class NavbarComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(res.user));
           this._authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
           this._router.navigate([this._returnUrl]);
-          this.loggedUser = res.user;
-          console.log(this.loggedUser)
+          this._authService.setLoggedUser(res.user);
         },
         error => {
           this.errorMessage = error;
           this.showError = true;
           this._authService.signOutExternal();
         });
+  }
+
+  private getLoggedUser() {
+    this._authService.getLoggedUser().subscribe(user => {
+      if (user.id) {
+        this.isLoggedIn = true;
+        this.loggedUser = user;
+      } else {
+        this.isUserLoggedIn();
+      }
+    })
+
   }
 }

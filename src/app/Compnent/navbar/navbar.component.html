@@ -36,8 +36,11 @@
 
                 </li>
 
-
                 <li class="gc_main_navigation parent"><a class="gc_main_navigation" href="#">Contact</a></li>
+                <li *ngIf="isLoggedIn && loggedUser" class="gc_main_navigation parent"><a class="gc_main_navigation"
+                                                                                          routerLink="/user-profile">Profile</a>
+                </li>
+
               </ul>
             </div>
           </div>
