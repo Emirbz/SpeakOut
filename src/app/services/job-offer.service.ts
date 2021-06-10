@@ -18,7 +18,7 @@ export class JobOfferService {
     return this._http.get<JobOffer[]>(this.jobOfferApi);
   }
 
-  getJobOfferById(jobOfferId: string): Observable<JobOffer> {
+  getJobOfferById(jobOfferId: string | null): Observable<JobOffer> {
     return this._http.get<JobOffer>(`${this.jobOfferApi}/byId?id?=${jobOfferId}`);
   }
 

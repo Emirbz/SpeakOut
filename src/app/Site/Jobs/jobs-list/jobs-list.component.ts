@@ -15,6 +15,7 @@ export class JobsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadJobOffers();
   }
 
 

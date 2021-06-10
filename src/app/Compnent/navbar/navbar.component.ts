@@ -83,6 +83,7 @@ export class NavbarComponent implements OnInit {
           this._authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
           this._router.navigate([this._returnUrl]);
           this.loggedUser = res.user;
+          console.log(this.loggedUser)
         },
         error => {
           this.errorMessage = error;

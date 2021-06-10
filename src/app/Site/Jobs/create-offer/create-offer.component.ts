@@ -28,7 +28,7 @@ export class CreateOfferComponent implements OnInit {
 
   offerFormValidate() {
     // job salary static attributes
-    this.jobSalary = ['Job Salary', '28K € - 33K', '€ 33K € - 38K', '€ 38K € - 43 €', '43K € - 50K €', '+50K €'];
+    this.jobSalary = ['Job Salary', '10K DT - 14K DT', 'DT 14K DT - 18K DT', 'DT 18K DT - 22k DT', '22K DT - 30K DT', '+30K DT'];
 
     // job job category static attributes
     this.jobCategory = ['Job Category', 'Graphic Designer', 'Engineering Jobs', 'Mainframe Jobs', 'Legal jobs', 'IT Jobs ', 'R&D Jobs', 'Government Jobs', 'PSU Jobs'];
@@ -71,6 +71,11 @@ export class CreateOfferComponent implements OnInit {
       jobOfferToSave.jobId = Math.floor(Math.random() * 145879) + 1;
       // set static company
       jobOfferToSave.companyId = 167;
+
+      // set valid to true
+      jobOfferToSave.isValid = true;
+      // set active to true
+      jobOfferToSave.isValid = true;
       // save data to db
       this.jobOfferService.createJobOffer(jobOfferToSave).subscribe(() => {
         // on success navigate to job offers list
