@@ -21,26 +21,18 @@
     </div>
   </div>
 </div>
-<div class="jp_cp_profile_main_wrapper">
+<div *ngIf="!isUpdateUserFormActive" class="jp_cp_profile_main_wrapper">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="jp_cp_left_side_wrapper">
           <div class="jp_cp_left_pro_wallpaper">
-            <img alt="profile_img" src="assets/images/content/cp1.png">
-            <h2>Farhan Shaikh</h2>
-            <p>UI/UX Designer in Dewas</p>
-            <ul>
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-            </ul>
-          </div>
-          <div class="jp_cp_rd_wrapper">
-            <ul>
-              <li><a href="#"><i class="fa fa-download"></i> &nbsp;Download Resume</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i> &nbsp;Contact candidate</a></li>
-            </ul>
+            <img *ngIf="loggedUser?.photoUrl===null" alt="profile_img" class="round-picture"
+                 src="assets/images/content/cp1.png">
+            <img *ngIf="loggedUser?.photoUrl!=null" [src]="loggedUser?.photoUrl" alt="profile_img"
+                 class="round-picture">
+            <h2>{{loggedUser?.firstName}} {{loggedUser?.lastName}}</h2>
+            <p><i class="fa fa-birthday-cake pl-"></i>&nbsp; {{loggedUser?.dateOfBirth | date: 'longDate'}}</p>
           </div>
         </div>
 
@@ -50,50 +42,44 @@
 
           <div class="jp_cp_right_side_inner_wrapper">
             <h2>PERSONAL DETAILS</h2>
-            <div class="jp_navi_right_btn_wrapper">
-              <ul>
-                <li><a class="company-button" routerLink="/companies/create"><i class="fa fa-building"></i>&nbsp;&nbsp;Become
-                  a company</a></li>
-              </ul>
+            <div class="jp_navi_right_btn_wrapper multiple-buttons">
+
+              <a (click)="this.isUpdateUserFormActive =true" class=" button  edit-button"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Update
+                profile
+              </a>
+
+              <a (click)="this.isUpdateUserFormActive =true" class=" button  company-button"><i
+                class="fa fa-building"></i>&nbsp;&nbsp;Become a company
+
+              </a>
             </div>
             <table>
               <tbody>
               <tr>
                 <td class="td-w25">Full Name</td>
                 <td class="td-w10">:</td>
-                <td class="td-w65">Farhan Shaikh</td>
-              </tr>
-              <tr>
-                <td class="td-w25">Father's Name</td>
-                <td class="td-w10">:</td>
-                <td class="td-w65">------</td>
+                <td class="td-w65">{{loggedUser?.civility}} {{loggedUser?.firstName}} {{loggedUser?.lastName}} </td>
               </tr>
               <tr>
                 <td class="td-w25">Address</td>
                 <td class="td-w10">:</td>
-                <td class="td-w65">Street 110-B Kalani Bag, Dewas, M.P. INDIA</td>
+                <td class="td-w65">{{loggedUser?.adresse}}, {{loggedUser?.city}} </td>
               </tr>
               <tr>
-                <td class="td-w25">Zip Code</td>
+                <td class="td-w25">Country</td>
                 <td class="td-w10">:</td>
-                <td class="td-w65">12345</td>
+                <td class="td-w65">{{loggedUser?.country}}</td>
               </tr>
               <tr>
                 <td class="td-w25">Phone</td>
                 <td class="td-w10">:</td>
-                <td class="td-w65">+0 123456789 , +0 123456789</td>
+                <td class="td-w65">{{loggedUser?.phoneNumber}}</td>
               </tr>
               <tr>
                 <td class="td-w25">Email</td>
                 <td class="td-w10">:</td>
-                <td class="td-w65">support@example.com</td>
+                <td class="td-w65">{{loggedUser?.email}}</td>
               </tr>
-              <tr>
-                <td class="td-w25">Website</td>
-                <td class="td-w10">:</td>
-                <td class="td-w65">http://example.com</td>
-              </tr>
-
               </tbody>
             </table>
           </div>
@@ -101,73 +87,13 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
             <div class="jp_cp_accor_heading_wrapper">
-              <h2>Education</h2>
-              <p>Proin gravida nibh vel velit quet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat
-                ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulpuate cursus a sit amet mauris.
-                Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt.</p>
+              <h2>About me</h2>
+              <p>{{loggedUser?.aboutMe}}</p>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
             <div class="accordion_wrapper abt_page_2_wrapper">
               <div class="panel-group" id="accordion_threeLeft">
-
-
-                <!-- /.panel-default -->
-                <div class="panel panel-default">
-                  <div class="panel-heading bell">
-                    <h4 class="panel-title">
-                      <a aria-expanded="false" class="collapsed" data-parent="#accordion_threeLeft"
-                         data-toggle="collapse" href="#collapseTwentyLeftThree">
-                        DIPLOMA IN COMPUTER
-                      </a>
-                    </h4>
-                  </div>
-                  <div aria-expanded="false" class="panel-collapse collapse" id="collapseTwentyLeftThree"
-                       role="tablist">
-                    <div class="panel-body">
-                      Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices
-                      idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat
-                      eu quis urna.
-                    </div>
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading bell">
-                    <h4 class="panel-title">
-                      <a aria-expanded="false" class="collapsed" data-parent="#accordion_threeLeft"
-                         data-toggle="collapse" href="#collapseTwentyLeftThree2">
-                        HIGHER SECONDRY EDUCATION
-                      </a>
-                    </h4>
-                  </div>
-                  <div aria-expanded="false" class="panel-collapse collapse" id="collapseTwentyLeftThree2"
-                       role="tablist">
-                    <div class="panel-body">
-                      Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices
-                      idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat
-                      eu quis urna.
-                    </div>
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading bell">
-                    <h4 class="panel-title">
-                      <a aria-expanded="false" class="collapsed" data-parent="#accordion_threeLeft"
-                         data-toggle="collapse" href="#collapseTwentyLeftThree3">
-                        HIGH SCHOOL DEGREE
-                      </a>
-                    </h4>
-                  </div>
-                  <div aria-expanded="false" class="panel-collapse collapse" id="collapseTwentyLeftThree3"
-                       role="tablist">
-                    <div class="panel-body">
-                      Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices
-                      idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat
-                      eu quis urna.
-                    </div>
-                  </div>
-                </div>
-                <!-- /.panel-default -->
               </div>
               <!--end of /.panel-group-->
             </div>
@@ -177,3 +103,6 @@
     </div>
   </div>
 </div>
+<app-update-user (userUpdatedEvent)=" isUpdateUserFormActive=$event" *ngIf="isUpdateUserFormActive"
+                 [loggedUser]="loggedUser"></app-update-user>
+

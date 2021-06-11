@@ -22,7 +22,7 @@
                   <!-- mega menu start -->
 
                 </li>
-                <li class="has-mega gc_main_navigation"><a class="gc_main_navigation" href="#"> Jobs&nbsp;<i
+                <li class="has-mega gc_main_navigation"><a class="gc_main_navigation"> Jobs&nbsp;<i
                   class="fa fa-angle-down"></i></a>
                   <!-- mega menu start -->
                   <ul>
@@ -51,9 +51,18 @@
             <ul>
               <li *ngIf="!isLoggedIn" class="login-button"><a (click)="externalLogin()"><i class="fa fa-google"></i>
                 Login</a></li>
-              <li *ngIf="isLoggedIn && loggedUser" class="author-thumb"><a class="profile-user"
-                                                                           routerLink="/user-profile"><img
-                [src]="loggedUser?.photoUrl" alt="user" class="profile-picture"> {{loggedUser?.email}}</a></li>
+              <li *ngIf="isLoggedIn && loggedUser"
+                  [class.large-author-thumb]="loggedUser?.firstName!==null && loggedUser?.lastName!==null"
+                  class="author-thumb"><a class="profile-user"
+                                          routerLink="/user-profile"><img
+                [src]="loggedUser?.photoUrl" alt="user" class="profile-picture">
+                <ng-template [ngIf]="loggedUser?.firstName===null && loggedUser?.lastName===null">
+                  {{loggedUser?.email}}
+                </ng-template>
+                <ng-template [ngIf]="loggedUser?.firstName!==null && loggedUser?.lastName!==null">
+                  {{loggedUser?.firstName}} {{loggedUser?.lastName}}
+                </ng-template>
+              </a></li>
             </ul>
           </div>
         </div>

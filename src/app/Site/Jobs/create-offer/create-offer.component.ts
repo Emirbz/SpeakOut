@@ -75,7 +75,7 @@ export class CreateOfferComponent implements OnInit {
       // set valid to true
       jobOfferToSave.isValid = true;
       // set active to true
-      jobOfferToSave.isValid = true;
+      jobOfferToSave.isActive = true;
       // save data to db
       this.jobOfferService.createJobOffer(jobOfferToSave).subscribe(() => {
         // on success navigate to job offers list

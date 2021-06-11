@@ -9,7 +9,7 @@ export const apiConfig = {
     jobOffer: `${apiUrl}/jobOffer`,
     jobApply: `${apiUrl}/jobApply`,
     file: `${apiUrl}/post`,
-    user: `${apiUrl}/user`,
+    user: `${apiUrl}/Users`,
 
   },
 };

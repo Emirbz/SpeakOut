@@ -1,15 +1,10 @@
-
-.jp_navi_right_btn_wrapper ul {
-  .company-button {
-    width: 100%;
-    padding: 0 12px;
-  }
-
+.jp_adp_form_wrapper .is-invalid {
+  border: #dc3545 1px solid;
 }
 
-.jp_cp_left_pro_wallpaper .round-picture {
-  border-radius: 50%;
-  width: 40%;
+.has-error .control-label {
+  margin-top: 0.25em;
+  color: #dc3545
 }
 
 .button {
@@ -24,20 +19,14 @@
   border-radius: 10px;
   transition: all 0.5s;
 
-  &.edit-button {
+  &.submit-button {
     border: 1px solid #f36969;
     background: #f36969;
   }
 
-  &.company-button {
+  &.cancel-button {
     border: 1px solid #aeaeae;
     background: #aeaeae;
-    width: 49%;
   }
-}
-
-.jp_cp_right_side_inner_wrapper .multiple-buttons {
-  float: right;
-  width: 62%;
 }
 

@@ -1,0 +1,104 @@
+<div class="jp_adp_main_section_wrapper">
+  <div class="container">
+    <form [formGroup]="userFormGroup">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="jp_adp_form_heading_wrapper">
+            <h2>Update Profile</h2>
+          </div>
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('firstName','required')" formControlName="firstName"
+                   placeholder="Firstname" type="text">
+            <div *ngIf="isFormSubmitted && formError('firstName','required')" class="has-error">
+              <label class="control-label">FirstName is required</label>
+            </div>
+          </div>
+          <div class="jp_adp_form_wrapper">
+            <select (change)="resetCivilitySelect()" [class.is-invalid]="isFormSubmitted && civilityError"
+                    formControlName="civility">
+              <ng-container *ngFor="let c of civility; let i =index">
+                <option *ngIf="i===0" disabled selected> {{c}}</option>
+                <option *ngIf="i>0"> {{c}}</option>
+              </ng-container>
+            </select>
+            <div *ngIf="isFormSubmitted && civilityError" class="has-error">
+              <label class="control-label">Civility is required</label>
+            </div>
+          </div>
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('city','required')" formControlName="city"
+                   placeholder="City" type="text">
+            <div *ngIf="isFormSubmitted && formError('city','required')" class="has-error">
+              <label class="control-label">City is required</label>
+            </div>
+          </div>
+
+
+          <div class="jp_adp_form_wrapper " style="padding-bottom: 1rem">
+            <input [class.is-invalid]="isFormSubmitted && formError('adresse','required')" formControlName="adresse"
+                   placeholder="Address" type="text">
+            <div *ngIf="isFormSubmitted && formError('adresse','required')" class="has-error">
+              <label class="control-label">Address number is required</label>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 bottom_line_Wrapper">
+          <div class="jp_adp_form_heading_wrapper">
+            <p>Fields with * are mandetory</p>
+          </div>
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('lastName','required')" formControlName="lastName"
+                   placeholder="Lastname" type="text">
+            <div *ngIf="isFormSubmitted && formError('lastName','required')" class="has-error">
+              <label class="control-label">LastName is required</label>
+            </div>
+          </div>
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('phoneNumber','required')"
+                   formControlName="phoneNumber"
+                   placeholder="Phone number" type="number">
+            <div *ngIf="isFormSubmitted && formError('phoneNumber','required')" class="has-error">
+              <label class="control-label">Phone number is required</label>
+            </div>
+          </div>
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('country','required')" formControlName="country"
+                   placeholder="Country" type="text">
+            <div *ngIf="isFormSubmitted && formError('country','required')" class="has-error">
+              <label class="control-label">Country is required</label>
+            </div>
+          </div>
+
+          <div class="jp_adp_form_wrapper ">
+            <input [class.is-invalid]="isFormSubmitted && formError('dateOfBirth','required')"
+                   formControlName="dateOfBirth"
+                   placeholder="Date of birth (jj/dd/yyyy)" type="date">
+            <div *ngIf="isFormSubmitted && formError('dateOfBirth','required')" class="has-error">
+              <label class="control-label">Date of birth is required</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="jp_adp_textarea_main_wrapper">
+            <textarea [class.is-invalid]="isFormSubmitted && formError('aboutMe','required')"
+                      formControlName="aboutMe"
+                      maxlength="255" placeholder="About me" rows="7"></textarea>
+          </div>
+          <div *ngIf="isFormSubmitted && formError('aboutMe','required')" class="has-error">
+            <label class="control-label">About me is required</label>
+          </div>
+          <div *ngIf="isFormSubmitted && formError('aboutMe','maxlength')" class="has-error">
+            <label class="control-label">About me must be at least 50 characters long.</label>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <a (click)="updateUser()" class=" button submit-button"><i class="fa fa-plus-circle"></i>&nbsp; Update profile</a>
+          <a (click)="resetForm()" *ngIf="loggedUser?.isActive" class=" button cancel-button"><i
+            class="fa fa-times"></i>&nbsp; Annuler </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
