@@ -1,5 +1,5 @@
 export class Company {
-  companyId?: string;
+  companyId?: number;
   companyName?: string;
   profileDescription?: string;
   business?: string;

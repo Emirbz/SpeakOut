@@ -34,6 +34,11 @@
     background: #aeaeae;
     width: 49%;
   }
+
+  &:hover {
+    border: 1px solid #e26e6e;
+    color: white !important;
+  }
 }
 
 .jp_cp_right_side_inner_wrapper .multiple-buttons {
