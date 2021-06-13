@@ -21,25 +21,61 @@
     </div>
   </div>
 </div>
-<div *ngIf="!isUpdateUserFormActive" class="jp_cp_profile_main_wrapper">
+<div *ngIf="!isUpdateUserFormActive && !isCreateCompanyActive" class="jp_cp_profile_main_wrapper">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="jp_cp_left_side_wrapper">
           <div class="jp_cp_left_pro_wallpaper">
-            <img *ngIf="loggedUser?.photoUrl===null" alt="profile_img" class="round-picture"
-                 src="assets/images/content/cp1.png">
-            <img *ngIf="loggedUser?.photoUrl!=null" [src]="loggedUser?.photoUrl" alt="profile_img"
-                 class="round-picture">
+            <div class="profile-pic">
+              <img *ngIf="!isProfilePicUploading"
+                   [src]="loggedUser?.photoUrl!==null ? loggedUser?.photoUrl: 'assets/images/content/cp1.png'"
+                   alt="profile pic">
+              <img *ngIf="isProfilePicUploading" [src]="profilePicPreview"
+                   alt="profile pic">
+              <ng-container>
+                <div *ngIf="isProfilePicUploading" class="layer">
+                  <div class="loader"></div>
+                </div>
+                <a (click)="profileImgInput.click()" *ngIf="!isProfilePicUploading" class="image-wrapper">
+
+                  <label class="edit glyphicon" title="Change picture"><i class="fa fa-pencil"></i></label>
+
+                </a>
+                <input #profileImgInput (change)="updateProfilePicture($event,'PROFILE')" accept="image/*" hidden
+                       type="file">
+              </ng-container>
+            </div>
             <h2>{{loggedUser?.firstName}} {{loggedUser?.lastName}}</h2>
             <p><i class="fa fa-birthday-cake pl-"></i>&nbsp; {{loggedUser?.dateOfBirth | date: 'longDate'}}</p>
           </div>
+          <div *ngIf="hasCompany" class="jp_cp_left_pro_wallpaper">
+            <div class="profile-pic company-picture">
+              <img *ngIf="!isCompanyPicUploading"
+                   [src]="loggedUserCompany?.companyUrl!==null ? loggedUserCompany?.companyUrl: 'assets/images/content/job_post_img3.jpg'"
+                   alt="company pic">
+              <img *ngIf="isCompanyPicUploading" [src]="companyPicPreview"
+                   alt="profile pic">
+              <ng-container>
+                <div *ngIf="isCompanyPicUploading" class="layer">
+                  <div class="loader"></div>
+                </div>
+                <a (click)="imgCompanyInput.click()" *ngIf="!isCompanyPicUploading" class="image-wrapper">
+
+                  <label class="edit glyphicon" title="Change picture"><i class="fa fa-pencil"></i></label>
+
+                </a>
+                <input #imgCompanyInput (change)="updateProfilePicture($event,'COMPANY')" accept="image/*" hidden
+                       type="file">
+              </ng-container>
+            </div>
+          </div>
+
         </div>
 
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <div class="jp_cp_right_side_wrapper">
-
           <div class="jp_cp_right_side_inner_wrapper">
             <h2>PERSONAL DETAILS</h2>
             <div class="jp_navi_right_btn_wrapper multiple-buttons">
@@ -48,7 +84,7 @@
                 profile
               </a>
 
-              <a class=" button  company-button" routerLink="/companies/create"><i
+              <a (click)="this.isCreateCompanyActive =true" *ngIf="!hasCompany" class=" button  company-button"><i
                 class="fa fa-building"></i>&nbsp;&nbsp;Become a company
 
               </a>
@@ -91,18 +127,55 @@
               <p>{{loggedUser?.aboutMe}}</p>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-            <div class="accordion_wrapper abt_page_2_wrapper">
-              <div class="panel-group" id="accordion_threeLeft">
+        </div>
+
+        <!-- Company details -->
+        <div *ngIf="hasCompany" class="jp_cp_right_side_wrapper">
+          <div class="jp_cp_right_side_inner_wrapper">
+            <h2>Company DETAILS</h2>
+            <table>
+              <tbody>
+              <tr>
+                <td class="td-w25">Company Name</td>
+                <td class="td-w10">:</td>
+                <td class="td-w65">{{loggedUserCompany?.companyName}} </td>
+              </tr>
+              <tr>
+                <td class="td-w25">Business</td>
+                <td class="td-w10">:</td>
+                <td class="td-w65">{{loggedUserCompany?.business}}</td>
+              </tr>
+              <tr>
+                <td class="td-w25">Establishment Date</td>
+                <td class="td-w10">:</td>
+                <td class="td-w65">{{loggedUserCompany?.establishmentDate | date :'longDate'}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+              <div class="jp_cp_accor_heading_wrapper">
+                <h2>Company description</h2>
+                <p>{{loggedUserCompany?.profileDescription}}</p>
               </div>
-              <!--end of /.panel-group-->
             </div>
           </div>
         </div>
+        <!-- End company details-->
       </div>
     </div>
   </div>
 </div>
-<app-update-user (userUpdatedEvent)=" isUpdateUserFormActive=$event" *ngIf="isUpdateUserFormActive"
+<app-update-user (userUpdatedEvent)=" isUpdateUserFormActive=$event"
+                 *ngIf="isUpdateUserFormActive && !isCreateCompanyActive"
                  [loggedUser]="loggedUser"></app-update-user>
+
+<app-create-company (companyUpdatedEvent)=" isCreateCompanyActive=$event"
+                    (hasCompanyEvent)="$event===true? checkUserGotCompany(loggedUser.id) : ''"
+                    *ngIf="!isUpdateUserFormActive && isCreateCompanyActive"
+
+                    [loggedUser]="loggedUser">
+
+</app-create-company>
 

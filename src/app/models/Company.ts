@@ -5,7 +5,8 @@ export class Company {
   business?: string;
   companyUrl?: string;
   establishmentDate?: string;
-  isValid?: boolean
+  isValid?: boolean;
+  userId?: string;
 
 
   constructor() {

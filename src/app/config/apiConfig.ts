@@ -8,7 +8,7 @@ export const apiConfig = {
     company: `${apiUrl}/company`,
     jobOffer: `${apiUrl}/jobOffer`,
     jobApply: `${apiUrl}/jobApply`,
-    file: `${apiUrl}/post`,
+    file: `${apiUrl}`,
     user: `${apiUrl}/Users`,
 
   },

@@ -63,6 +63,7 @@ export class AuthentificationService {
     this._loggedUser.next(user);
   }
 
+
   getLoggedUser(): Observable<User> {
     return this.loggedUser;
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Company} from '../../../models/Company';
@@ -14,17 +14,20 @@ import {CompanyService} from '../../../Services/company.service';
 export class CreateCompanyComponent implements OnInit {
   companyFormGroup: FormGroup;
   isFormSubmitted: boolean = false;
-  loggedUser: User;
+
+  @Output() companyUpdatedEvent = new EventEmitter<boolean>();
+  @Output() hasCompanyEvent = new EventEmitter<boolean>();
+  @Input() loggedUser: User;
 
   constructor(private formBuilder: FormBuilder,
               private companyService: CompanyService,
               private router: Router,
+              private authentificationService: AuthentificationService,
               private authenticationService: AuthentificationService) {
   }
 
   ngOnInit(): void {
     this.companyFormGroupValidate();
-    this.getLoggedUser();
   }
 
   createCompany() {
@@ -38,7 +41,7 @@ export class CreateCompanyComponent implements OnInit {
       const companyToSave = {...this.companyFormGroup.value} as Company;
 
       // set static user
-      // companyToSave.userId = this.loggedUser?.id;
+      companyToSave.userId = this.loggedUser?.id;
       // set random id
       companyToSave.companyId = Math.floor(Math.random() * 145879) + 1;
 
@@ -46,10 +49,13 @@ export class CreateCompanyComponent implements OnInit {
       companyToSave.isValid = true;
       // set active to true
 
+      // set user company
+
       // save data to db
       this.companyService.createCompany(companyToSave).subscribe(() => {
         // on success navigate to job offers list
-        this.router.navigate(['/user-profile']);
+        this.companyUpdatedEvent.emit(false);
+        this.hasCompanyEvent.emit(true);
       })
     }
 

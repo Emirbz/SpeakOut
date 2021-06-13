@@ -74,7 +74,7 @@
           <div class="jp_adp_form_wrapper ">
             <input [class.is-invalid]="isFormSubmitted && formError('dateOfBirth','required')"
                    formControlName="dateOfBirth"
-                   placeholder="Date of birth (jj/dd/yyyy)" type="date">
+                   onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="Date of birth (jj/dd/yyyy)">
             <div *ngIf="isFormSubmitted && formError('dateOfBirth','required')" class="has-error">
               <label class="control-label">Date of birth is required</label>
             </div>

@@ -6,7 +6,7 @@ import {CompaniesDetailsComponent} from '../Site/Companies/companies-details/com
 import {CreateOfferComponent} from '../Site/Jobs/create-offer/create-offer.component';
 import {JobsListComponent} from '../Site/Jobs/jobs-list/jobs-list.component';
 import {JobDetailsComponent} from '../Site/Jobs/job-details/job-details.component';
-import {CreateCompanyComponent} from '../Site/Companies/create-company/create-company.component';
+import {AuthGuardGuard} from '../shared/guard/auth-guard.guard';
 
 
 export const HomeRoutes: Routes = [
@@ -31,11 +31,10 @@ export const HomeRoutes: Routes = [
   //     },
   {path: 'home', component: DashboardComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'user-profile', component: UserProfileComponent, data: {title: 'user Profile'}},
+  {path: 'user-profile', component: UserProfileComponent, data: {title: 'user Profile'}, canActivate: [AuthGuardGuard]},
   {path: 'companies', component: CompaniesListComponent},
-  {path: 'companies/create', component: CreateCompanyComponent},
   {path: 'companies/:id', component: CompaniesDetailsComponent},
-  {path: 'jobs/create', component: CreateOfferComponent},
+  {path: 'jobs/create', component: CreateOfferComponent, canActivate: [AuthGuardGuard]},
   {path: 'jobs', component: JobsListComponent},
   {path: 'jobs/:id', component: JobDetailsComponent},
 ];

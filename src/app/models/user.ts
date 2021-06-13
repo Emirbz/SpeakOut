@@ -1,5 +1,5 @@
 export class User {
-  id?: string;
+  id?: string | undefined;
   civility?: string;
   email?: string;
   password?: string;
