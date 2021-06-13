@@ -18,8 +18,8 @@ export class CompanyService {
     return this._http.get<Company[]>(this.companyApi);
   }
 
-  getCompanyById(companyId: string): Observable<Company> {
-    return this._http.get<Company>(`${this.companyApi}/byId?id?=${companyId}`);
+  getCompanyById(companyId: string | null): Observable<Company> {
+    return this._http.get<Company>(`${this.companyApi}/byId?id=${companyId}`);
   }
 
   getCompanyByUserId(userId: string | undefined): Observable<Company> {
@@ -38,7 +38,7 @@ export class CompanyService {
 
   deleteCompany(companyId: string): Observable<Company> {
 
-    return this._http.delete<Company>(`${this.companyApi}/byId?id?=${companyId}`);
+    return this._http.delete<Company>(`${this.companyApi}/byId?id=${companyId}`);
   }
 
 

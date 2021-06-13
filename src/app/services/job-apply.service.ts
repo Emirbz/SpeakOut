@@ -19,7 +19,7 @@ export class JobApplyService {
   }
 
   getJobApplyById(jobOfferId: string): Observable<JobApply> {
-    return this._http.get<JobApply>(`${this.jobApplyApi}/byId?id?=${jobOfferId}`);
+    return this._http.get<JobApply>(`${this.jobApplyApi}/byId?id=${jobOfferId}`);
   }
 
   createJobApply(newJobApply: JobApply): Observable<JobApply> {
@@ -34,6 +34,6 @@ export class JobApplyService {
 
   deleteJobApply(jobOfferId: string): Observable<JobApply> {
 
-    return this._http.delete<JobApply>(`${this.jobApplyApi}/byId?id?=${jobOfferId}`);
+    return this._http.delete<JobApply>(`${this.jobApplyApi}/byId?id=${jobOfferId}`);
   }
 }

@@ -1,0 +1,24 @@
+
+.button {
+  margin: 1rem 1rem;
+  float: left;
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 10px;
+  transition: all 0.5s;
+
+  &.submit-button {
+    border: 1px solid #f36969;
+    background: #f36969;
+  }
+
+  &.cancel-button {
+    border: 1px solid #aeaeae;
+    background: #aeaeae;
+  }
+}
+

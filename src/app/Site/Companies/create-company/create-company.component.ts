@@ -5,6 +5,7 @@ import {Company} from '../../../models/Company';
 import {AuthentificationService} from '../../../Services/authentification.service';
 import {User} from '../../../models/user';
 import {CompanyService} from '../../../Services/company.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-company',
@@ -23,7 +24,8 @@ export class CreateCompanyComponent implements OnInit {
               private companyService: CompanyService,
               private router: Router,
               private authentificationService: AuthentificationService,
-              private authenticationService: AuthentificationService) {
+              private authenticationService: AuthentificationService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class CreateCompanyComponent implements OnInit {
         // on success navigate to job offers list
         this.companyUpdatedEvent.emit(false);
         this.hasCompanyEvent.emit(true);
+        this.toastr.success('Company created', 'Your Company have been created successfully');
       })
     }
 
@@ -85,4 +88,10 @@ export class CreateCompanyComponent implements OnInit {
       }
     });
   }
+
+  resetForm() {
+    this.companyUpdatedEvent.emit(false);
+
+  }
+
 }

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../models/user';
 import {AuthentificationService} from '../../../Services/authentification.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-user',
@@ -18,7 +19,8 @@ export class UpdateUserComponent implements OnInit {
   @Input() loggedUser: User;
 
   constructor(private formBuilder: FormBuilder,
-              private authenticationService: AuthentificationService) {
+              private authenticationService: AuthentificationService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -66,6 +68,7 @@ export class UpdateUserComponent implements OnInit {
         // update stored user
         this.authenticationService.setLoggedUser(userToUpdate);
         localStorage.setItem('user', JSON.stringify(userToUpdate));
+        this.toastr.success('User updated', 'Your profile picture has updated successfully');
       }, error => {
         console.log(error)
       })

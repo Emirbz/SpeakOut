@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {JobOfferService} from '../../../Services/job-offer.service';
 import {JobOffer} from '../../../models/JobOffer';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-offer',
@@ -19,7 +20,8 @@ export class CreateOfferComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private jobOfferService: JobOfferService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -43,7 +45,6 @@ export class CreateOfferComponent implements OnInit {
     });
 
   }
-
 
   createOffer() {
     // check whenever default job salary value is still selected
@@ -78,6 +79,7 @@ export class CreateOfferComponent implements OnInit {
       jobOfferToSave.isActive = true;
       // save data to db
       this.jobOfferService.createJobOffer(jobOfferToSave).subscribe(() => {
+        this.toastr.success('Job created', 'Your job have been created successfully');
         // on success navigate to job offers list
         this.router.navigate(['/jobs']);
       })

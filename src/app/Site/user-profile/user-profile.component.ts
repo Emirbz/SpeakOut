@@ -7,6 +7,7 @@ import {CompanyService} from '../../Services/company.service';
 import {Company} from '../../models/Company';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {FileService} from '../../Services/file.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +29,8 @@ export class UserProfileComponent implements OnInit {
     private authenticationService: AuthentificationService,
     private companyService: CompanyService,
     private sanitizer: DomSanitizer,
-    private fileService: FileService
+    private fileService: FileService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -103,8 +105,7 @@ export class UserProfileComponent implements OnInit {
     this.loggedUser.photoUrl = uploadedFile.filePath;
     this.authenticationService.updateUser(this.loggedUser).subscribe(() => {
       this.isProfilePicUploading = false;
-      // Todo show toast
-      console.log('-- user profile pic has been updated ---')
+      this.toastr.success('User updated', 'Your profile picture has updated successfully');
 
     });
 
@@ -116,8 +117,8 @@ export class UserProfileComponent implements OnInit {
     this.companyService.updateCompany(this.loggedUserCompany).subscribe(() => {
 
       this.isCompanyPicUploading = false;
-      // Todo show toast
-      console.log('-- company pic has been updated ---')
+      this.toastr.success('Company updated', 'Your company picture has updated successfully');
+
 
     })
 

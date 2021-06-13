@@ -18,6 +18,8 @@ import {JobDetailsComponent} from './Site/Jobs/job-details/job-details.component
 import {CreateCompanyComponent} from './Site/Companies/create-company/create-company.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {UpdateUserComponent} from './Site/user-profile/update-user/update-user.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -35,15 +37,18 @@ export function tokenGetter() {
     JobsListComponent,
     JobDetailsComponent,
     CreateCompanyComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,
+    NoopAnimationsModule,
     AppRoutingModule,
     CompnentModule,
     HttpClientModule,
     RouterModule,
     SocialLoginModule,
+    ToastrModule.forRoot(),
+
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

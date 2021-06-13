@@ -19,7 +19,7 @@ export class JobOfferService {
   }
 
   getJobOfferById(jobOfferId: string | null): Observable<JobOffer> {
-    return this._http.get<JobOffer>(`${this.jobOfferApi}/byId?id?=${jobOfferId}`);
+    return this._http.get<JobOffer>(`${this.jobOfferApi}/byId?id=${jobOfferId}`);
   }
 
   createJobOffer(newJobOffer: JobOffer): Observable<JobOffer> {
@@ -33,6 +33,6 @@ export class JobOfferService {
 
   deleteJobOffer(jobOfferId: string): Observable<JobOffer> {
 
-    return this._http.delete<JobOffer>(`${this.jobOfferApi}/byId?id?=${jobOfferId}`);
+    return this._http.delete<JobOffer>(`${this.jobOfferApi}/byId?id=${jobOfferId}`);
   }
 }

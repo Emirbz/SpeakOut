@@ -28,4 +28,12 @@ export class JobsListComponent implements OnInit {
 
   }
 
+
+  shortenTitle(attribute: string, maxLength: number, from: number, to: number) {
+    if (attribute && attribute.length > maxLength) {
+
+      attribute = attribute.substring(from, to) + '...';
+    }
+    return `${attribute}`;
+  }
 }

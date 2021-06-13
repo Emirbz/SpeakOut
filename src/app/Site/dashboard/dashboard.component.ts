@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {JobOffer} from '../../models/JobOffer';
+import {JobOfferService} from '../../Services/job-offer.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,23 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  loadedJobs: JobOffer[] = []
+
+  constructor(private jobOfferService: JobOfferService) {
+  }
 
   ngOnInit(): void {
+    this.loadJobOffers();
+  }
+
+
+  loadJobOffers() {
+    this.jobOfferService.getAllJobOffers().subscribe(jobs => {
+      this.loadedJobs = jobs
+    }, error => {
+      console.log(error)
+    })
+
   }
 
 }
