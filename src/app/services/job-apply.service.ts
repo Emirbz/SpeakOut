@@ -22,6 +22,11 @@ export class JobApplyService {
     return this._http.get<JobApply>(`${this.jobApplyApi}/byId?id=${jobOfferId}`);
   }
 
+  getJobApplyByJobOffer(jobOfferId: number): Observable<JobApply[]> {
+    return this._http.get<JobApply[]>(`${this.jobApplyApi}/byJobId?id=${jobOfferId}`);
+  }
+
+
   createJobApply(newJobApply: JobApply): Observable<JobApply> {
 
     return this._http.post<JobApply>(`${this.jobApplyApi}/create`, newJobApply);
@@ -36,4 +41,6 @@ export class JobApplyService {
 
     return this._http.delete<JobApply>(`${this.jobApplyApi}/byId?id=${jobOfferId}`);
   }
+
+
 }
