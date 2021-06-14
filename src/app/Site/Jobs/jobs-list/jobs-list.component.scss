@@ -15,3 +15,15 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.jp_job_post_right_btn_wrapper ul li {
+  .applied {
+    background-color: #199219;
+  }
+
+  :hover {
+    background-color: #17a417 !important;
+    border: #17a417 1px solid !important;
+  }
+}
+

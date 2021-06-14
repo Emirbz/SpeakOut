@@ -28,7 +28,7 @@ export class CompanyService {
 
   createCompany(newCompany: Company): Observable<Company> {
 
-    return this._http.post<Company>(`${this.companyApi}/create?companyId=${newCompany.companyId}&business=${newCompany.business}&establishmentDate=${newCompany.establishmentDate}&profileDescription=${newCompany.profileDescription}&isValid=isValid&companyName=${newCompany.companyName}&userId=${newCompany.userId}`, {});
+    return this._http.post<Company>(`${this.companyApi}/create?companyId=${newCompany.companyId}&business=${newCompany.business}&establishmentDate=${newCompany.establishmentDate}&profileDescription=${newCompany.profileDescription}&isValid=isValid&companyName=${newCompany.companyName}&userId=${newCompany.userId}&localisation=${newCompany?.localisation}`, {});
   }
 
   updateCompany(updatedCompany: Company): Observable<Company> {

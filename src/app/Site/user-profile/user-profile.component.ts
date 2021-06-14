@@ -107,6 +107,9 @@ export class UserProfileComponent implements OnInit {
       this.isProfilePicUploading = false;
       this.toastr.success('User updated', 'Your profile picture has updated successfully');
 
+      // update local storage and local user
+      localStorage.setItem('user', JSON.stringify(this.loggedUser));
+      this.authenticationService.setLoggedUser(this.loggedUser)
     });
 
 

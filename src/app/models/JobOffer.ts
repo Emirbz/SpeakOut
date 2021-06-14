@@ -16,7 +16,7 @@ export class JobOffer {
   isActive: boolean;
   isValid: boolean;
   jobLocationId: number;
-  jobApply?: JobApply;
+  jobApply: JobApply[];
   userApplied?: boolean;
 
 

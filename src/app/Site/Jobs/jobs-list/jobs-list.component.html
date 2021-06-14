@@ -171,7 +171,10 @@
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
                               <ul>
-                                <li><a href="#">Apply</a></li>
+                                <li>
+                                  <a *ngIf="checkUserHasApplied(j)" class="applied"><i class="fa fa-check"></i> Applied</a>
+                                  <a *ngIf="!checkUserHasApplied(j)">Apply</a>
+                                </li>
                               </ul>
                             </div>
                           </div>
