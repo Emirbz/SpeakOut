@@ -59,6 +59,7 @@ export class CreateCompanyComponent implements OnInit {
         this.companyUpdatedEvent.emit(false);
         this.hasCompanyEvent.emit(true);
         this.toastr.success('Company created', 'Your Company have been created successfully');
+        localStorage.setItem('USER_ROLE', 'RECRUITER')
       })
     }
 
@@ -76,6 +77,7 @@ export class CreateCompanyComponent implements OnInit {
       profileDescription: ['', Validators.required],
       companyName: ['', Validators.required],
       establishmentDate: ['', Validators.required],
+      localisation: ['', Validators.required],
 
     });
 

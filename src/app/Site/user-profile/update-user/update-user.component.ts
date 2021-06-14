@@ -68,7 +68,7 @@ export class UpdateUserComponent implements OnInit {
         // update stored user
         this.authenticationService.setLoggedUser(userToUpdate);
         localStorage.setItem('user', JSON.stringify(userToUpdate));
-        this.toastr.success('User updated', 'Your profile picture has updated successfully');
+        this.toastr.success('User updated', 'Your profile  has updated successfully');
       }, error => {
         console.log(error)
       })

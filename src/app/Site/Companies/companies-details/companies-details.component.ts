@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Company} from '../../../models/Company';
 import {CompanyService} from '../../../Services/company.service';
+import {JobOffer} from '../../../models/JobOffer';
+import {JobOfferService} from '../../../Services/job-offer.service';
 
 @Component({
   selector: 'app-companies-details',
@@ -11,19 +13,35 @@ import {CompanyService} from '../../../Services/company.service';
 export class CompaniesDetailsComponent implements OnInit {
 
   loadedCompany: Company;
+  loadedJobs: JobOffer[] = []
 
   constructor(private companyService: CompanyService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private jobOfferService: JobOfferService) {
   }
 
   ngOnInit(): void {
     this.loadSingleCompany();
+    this.loadJobOffers();
+
+  }
+
+  loadJobOffers() {
+    const id = this.route.snapshot.paramMap.get('id') as string;
+    this.jobOfferService.getAllJobOffers().subscribe(jobs => {
+      this.loadedJobs = jobs.filter(j => String(j.companyId) === id);
+
+    }, error => {
+      console.log(error)
+    })
+
   }
 
   private loadSingleCompany() {
     const id = this.route.snapshot.paramMap.get('id');
     this.companyService.getCompanyById(id).subscribe(c => {
       this.loadedCompany = c;
+
     });
   };
 

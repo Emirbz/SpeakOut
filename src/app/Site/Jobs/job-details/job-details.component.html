@@ -34,18 +34,6 @@
 
         </div>
 
-        <div class="jp_listing_left_bottom_sidebar_key_wrapper">
-          <ul>
-            <li><i class="fa fa-tags"></i>Keywords :</li>
-            <li><a href="#">ui designer,</a></li>
-            <li><a href="#">developer,</a></li>
-            <li><a href="#">senior</a></li>
-            <li><a href="#">it company,</a></li>
-            <li><a href="#">design,</a></li>
-            <li><a href="#">call center</a></li>
-          </ul>
-        </div>
-
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="row">
@@ -62,7 +50,8 @@
               <div class="jp_job_listing_single_post_right_cont">
                 <div class="jp_job_listing_single_post_right_cont_wrapper">
                   <h4>{{loadedJobOffer?.title}}</h4>
-                  <p>{{loadedJobOffer?.company?.companyName}}</p>
+                  <p [routerLink]="['/companies/',loadedJobOffer?.company?.companyId]"
+                     class="cursor-pointer">{{loadedJobOffer?.company?.companyName}}</p>
                 </div>
               </div>
 

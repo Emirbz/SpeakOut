@@ -74,6 +74,7 @@
           <div class="jp_adp_form_wrapper ">
             <input [class.is-invalid]="isFormSubmitted && formError('dateOfBirth','required')"
                    formControlName="dateOfBirth"
+                   type="text"
                    onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="Date of birth (jj/dd/yyyy)">
             <div *ngIf="isFormSubmitted && formError('dateOfBirth','required')" class="has-error">
               <label class="control-label">Date of birth is required</label>
@@ -90,7 +91,7 @@
             <label class="control-label">About me is required</label>
           </div>
           <div *ngIf="isFormSubmitted && formError('aboutMe','maxlength')" class="has-error">
-            <label class="control-label">About me must be at least 50 characters long.</label>
+            <label class="control-label">About me must be lower then 50 characters long.</label>
           </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

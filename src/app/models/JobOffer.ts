@@ -1,4 +1,5 @@
 import {Company} from './Company';
+import {JobApply} from './JobApply';
 
 export class JobOffer {
   jobId: number;
@@ -15,6 +16,8 @@ export class JobOffer {
   isActive: boolean;
   isValid: boolean;
   jobLocationId: number;
+  jobApply?: JobApply;
+  userApplied?: boolean;
 
 
   constructor() {

@@ -5,6 +5,7 @@ export class Company {
   business?: string;
   companyUrl?: string;
   establishmentDate?: string;
+  localisation?: string;
   isValid?: boolean;
   userId?: string;
 

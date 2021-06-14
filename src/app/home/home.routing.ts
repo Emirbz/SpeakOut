@@ -31,10 +31,10 @@ export const HomeRoutes: Routes = [
   //     },
   {path: 'home', component: DashboardComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'user-profile', component: UserProfileComponent, data: {title: 'user Profile'}, canActivate: [AuthGuardGuard]},
+  {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardGuard]},
   {path: 'companies', component: CompaniesListComponent},
   {path: 'companies/:id', component: CompaniesDetailsComponent},
-  {path: 'jobs/create', component: CreateOfferComponent, canActivate: [AuthGuardGuard]},
+  {path: 'jobs/create', component: CreateOfferComponent, canActivate: [AuthGuardGuard], data: {roles: ['RECRUITER']}},
   {path: 'jobs', component: JobsListComponent},
   {path: 'jobs/:id', component: JobDetailsComponent},
 ];

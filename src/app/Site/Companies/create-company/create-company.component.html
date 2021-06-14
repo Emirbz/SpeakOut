@@ -22,6 +22,14 @@
               <label class="control-label">Business is required</label>
             </div>
           </div>
+          <div class="jp_adp_form_wrapper">
+            <input [class.is-invalid]="isFormSubmitted && formError('locilisation','required')"
+                   formControlName="localisation"
+                   placeholder="Localisation" type="text">
+            <div *ngIf="isFormSubmitted && formError('localisation','required')" class="has-error">
+              <label class="control-label">Localisation is required</label>
+            </div>
+          </div>
 
 
         </div>
@@ -51,16 +59,14 @@
 
 
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="jp_adp_choose_resume_bottom_btn_post">
-          <ul>
-            <li><a (click)="createCompany()" class=" button submit-button">
-              <i class="fa fa-plus-circle"></i> Create company</a></li>
-            <a (click)="resetForm()" *ngIf="loggedUser?.isActive" class=" button cancel-button"><i
-              class="fa fa-times"></i>&nbsp; Annuler </a>
 
-          </ul>
-        </div>
+
+        <a (click)="resetForm()" *ngIf="loggedUser?.isActive" class=" button cancel-button"><i
+          class="fa fa-times"></i>&nbsp; Annuler </a>
+        <a (click)="createCompany()" class=" button submit-button">
+          <i class="fa fa-plus-circle"></i> Create company</a>
       </div>
+
     </form>
   </div>
 </div>

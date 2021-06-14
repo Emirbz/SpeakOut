@@ -4,6 +4,7 @@ import {AuthentificationService} from '../../Services/authentification.service';
 import {ExternalAuthDto} from '../../_interface/externalAuthDto.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/user';
+import {CompanyService} from '../../Services/company.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,10 +21,12 @@ export class NavbarComponent implements OnInit {
   public isUserAuthenticated !: boolean;
   isLoggedIn = false;
   private _returnUrl !: string;
+  hasCompany: boolean = false;
 
   constructor(
     private _authService: AuthentificationService,
     private _socialAuthService: SocialAuthService,
+    private companyService: CompanyService,
     public   _router: Router,
     private _route: ActivatedRoute) {
     this._authService.authChanged.subscribe(res => {
@@ -91,6 +94,18 @@ export class NavbarComponent implements OnInit {
         });
   }
 
+  checkUserGotCompany(id: string | undefined) {
+    this.companyService.getCompanyByUserId(id).subscribe(company => {
+      if (company.companyId && company.companyId > 0) {
+        // if user has already a company create offer is displayed
+        this.hasCompany = true;
+        localStorage.setItem('USER_ROLE', 'RECRUITER')
+
+      }
+    })
+
+  }
+
   private getLoggedUser() {
     this._authService.getLoggedUser().subscribe(user => {
       if (user.id) {
@@ -100,6 +115,5 @@ export class NavbarComponent implements OnInit {
         this.isUserLoggedIn();
       }
     })
-
   }
 }

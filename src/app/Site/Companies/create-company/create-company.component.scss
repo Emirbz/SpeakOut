@@ -11,6 +11,11 @@
   border-radius: 10px;
   transition: all 0.5s;
 
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
+
   &.submit-button {
     border: 1px solid #f36969;
     background: #f36969;
