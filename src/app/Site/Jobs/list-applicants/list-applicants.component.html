@@ -1,0 +1,26 @@
+<div class="row">
+  <a (click)="close()" class="button edit-button cursor-pointer"><i class="fa fa-close"></i>&nbsp;&nbsp;Close </a>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+    <div class="row">
+      <div *ngFor="let u of listCandidates" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="jp_recent_resume_box_wrapper">
+          <div class="jp_recent_resume_img_wrapper">
+            <img [src]="u?.photoUrl" alt="resume_img" class="resume_img">
+          </div>
+          <div class="jp_recent_resume_cont_wrapper">
+            <h3>{{u?.firstName |titlecase}}  {{u?.lastName| titlecase}}</h3>
+            <p><i class="fa fa-folder-open-o"></i> <a href="#">{{u?.email}}</a></p>
+          </div>
+          <div class="jp_recent_resume_btn_wrapper">
+            <ul>
+              <li><a class="accept">Accept</a></li>
+              <li><a class="refuse">Refuse</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

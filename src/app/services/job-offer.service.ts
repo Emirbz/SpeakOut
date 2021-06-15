@@ -22,6 +22,11 @@ export class JobOfferService {
     return this._http.get<JobOffer>(`${this.jobOfferApi}/byId?id=${jobOfferId}`);
   }
 
+
+  getJobOfferByUserId(userId: string | undefined): Observable<JobOffer[]> {
+    return this._http.get<JobOffer[]>(`${this.jobOfferApi}/byUserId?id=${userId}`);
+  }
+
   createJobOffer(newJobOffer: JobOffer): Observable<JobOffer> {
     return this._http.post<JobOffer>(`${this.jobOfferApi}/create?title=${newJobOffer.title}&localisation=${newJobOffer.localisation}&salaire=${newJobOffer.salaire}&userId=${newJobOffer.userId}&jobId=${newJobOffer.jobId}&categorie=${newJobOffer.categorie}&jobDescription=${newJobOffer.jobDescription}&`, {});
   }

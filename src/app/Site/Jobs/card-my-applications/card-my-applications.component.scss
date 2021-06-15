@@ -1,0 +1,11 @@
+.applicants a {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.company_image {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}

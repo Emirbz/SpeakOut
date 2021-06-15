@@ -115,7 +115,12 @@
                 <div class="jp_listing_right_bar_btn_wrapper">
                   <div class="jp_listing_right_bar_btn">
                     <ul>
-                      <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;Apply NOw!</a></li>
+                      <li>
+                        <a *ngIf="checkUserHasApplied(loadedJobOffer)" class="applied"><i class="fa fa-check"></i>
+                          Applied</a>
+                        <a
+                          *ngIf="!checkUserHasApplied(loadedJobOffer) && loggedUser.hasResume && !loggedUser?.hasCompany">Apply</a>
+                      </li>
                     </ul>
                   </div>
                 </div>

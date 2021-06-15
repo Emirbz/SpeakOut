@@ -8,6 +8,10 @@ import {Company} from '../../models/Company';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {FileService} from '../../Services/file.service';
 import {ToastrService} from 'ngx-toastr';
+import {JobOffer} from '../../models/JobOffer';
+import {JobApply} from '../../models/JobApply';
+import {JobOfferService} from '../../Services/job-offer.service';
+import {JobApplyService} from '../../Services/job-apply.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,13 +28,24 @@ export class UserProfileComponent implements OnInit {
   isCompanyPicUploading: boolean = false;
   profilePicPreview: SafeUrl;
   companyPicPreview: SafeUrl;
+  selectedTab: number = 0;
+  profileClass: string = '';
+  loadedCompanyOffers: JobOffer[] = [];
+  loadedUserApplies: JobApply[] = [];
+  companyOffersClass: string = '';
+  hasResume: boolean = false;
+  userResume: File;
+  listApplicants: User[] = [];
+  displayApplicantsList: boolean = false;
 
   constructor(
     private authenticationService: AuthentificationService,
     private companyService: CompanyService,
     private sanitizer: DomSanitizer,
     private fileService: FileService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private jobOfferService: JobOfferService,
+    private jobApplyService: JobApplyService
   ) {
   }
 
@@ -44,9 +59,16 @@ export class UserProfileComponent implements OnInit {
       if (company.companyId && company.companyId > 0) {
         // if user has already a company its iformation is displayed
         this.hasCompany = true;
+        this.loggedUser.hasCompany = true;
+        localStorage.setItem('user', JSON.stringify(this.loggedUser));
         this.loggedUserCompany = company;
+        this.loadCompanyOffers();
+        console.log(this.loggedUserCompany);
 
+      } else {
+        this.loadUserApplies();
       }
+
     })
 
   }
@@ -62,7 +84,7 @@ export class UserProfileComponent implements OnInit {
     picture === 'PROFILE' ? this.isProfilePicUploading = true : this.isCompanyPicUploading = true
 
     // upload file
-    this.fileService.uploadFile(fileToUpload, <string>this.loggedUser.id).subscribe(uploadedFile => {
+    this.fileService.uploadFile(fileToUpload, <string>this.loggedUser.id, 'image').subscribe(uploadedFile => {
 
       // update the picture url
       picture === 'PROFILE' ? this.updateUserPicture(uploadedFile) : this.updateCompanyPicture(uploadedFile);
@@ -79,25 +101,29 @@ export class UserProfileComponent implements OnInit {
     };
   }
 
-  private getLoggedUser() {
-    this.authenticationService.getLoggedUser().subscribe(user => {
-      if (user.id) {
-        this.getUserProfile(user.id)
-        this.checkUserGotCompany(user.id);
+  changeTab() {
 
-      }
-    });
+    if (this.selectedTab === 0) {
+      this.selectedTab = 1;
+      this.companyOffersClass = 'animated fadeIn';
+    } else {
+      this.profileClass = 'animated fadeIn';
+      this.selectedTab = 0;
+    }
+
   }
 
-  private getUserProfile(id: string) {
-    this.authenticationService.getUserProfile(id).subscribe(user => {
-      this.loggedUser = user;
-      console.log(user)
-      if (!user.isActive) {
-        // if users has not completed his profile, the form is shown
-        this.isUpdateUserFormActive = true;
-      }
-    })
+  getUserResume(user: User) {
+
+    const resume = user.files?.filter(f => f.type === 'cv')[0];
+
+    if (resume !== undefined) {
+      this.hasResume = true;
+      this.loggedUser.hasResume = true;
+      localStorage.setItem('user', JSON.stringify(user));
+      this.userResume = resume
+    }
+
 
   }
 
@@ -125,5 +151,87 @@ export class UserProfileComponent implements OnInit {
 
     })
 
+  }
+
+  uploadResume(event: any) {
+    // get chosen file
+    const fileToUpload = event.target.files[0];
+    // upload file
+    this.fileService.uploadFile(fileToUpload, <string>this.loggedUser.id, 'cv').subscribe(uploadedFile => {
+      this.hasResume = true;
+      this.loggedUser.hasResume = true;
+      this.userResume = uploadedFile
+      this.loggedUser.files?.push(uploadedFile);
+      this.authenticationService.setLoggedUser(this.loggedUser)
+    })
+
+
+  }
+
+  displayApplicants(event: User[]) {
+    this.listApplicants = event
+    this.displayApplicantsList = true;
+
+  }
+
+  closeApplicants() {
+    this.listApplicants = [];
+    this.displayApplicantsList = false;
+
+  }
+
+  private getLoggedUser() {
+    this.authenticationService.getLoggedUser().subscribe(user => {
+      if (user.id) {
+        this.loggedUser = user;
+        this.checkUserGotCompany(user.id);
+        this.getUserResume(user);
+        this.getUserProfile(user.id)
+      }
+
+    }, error => {
+
+    }, () => {
+
+
+    });
+  }
+
+  private getUserProfile(id: string | undefined) {
+    this.authenticationService.getUserProfile(id).subscribe(user => {
+      this.loggedUser = user;
+
+      if (!user.isActive) {
+        // if users has not completed his profile, the form is shown
+        this.isUpdateUserFormActive = true;
+
+      }
+    })
+
+  }
+
+  private loadCompanyOffers() {
+    this.jobOfferService.getAllJobOffers().subscribe(jobOffers => {
+      this.loadedCompanyOffers = jobOffers.filter(j => j.companyId === this.loggedUserCompany.companyId).map(job => {
+        // add list of jobApply to for each jobOffer
+        this.loadJobAppliesByJob(job);
+        return job;
+      });
+    })
+
+
+  }
+
+  private loadUserApplies() {
+    this.jobApplyService.getAllJobApplies().subscribe(jobApply => {
+      this.loadedUserApplies = jobApply.filter(j => j.userId === this.loggedUser.id);
+    })
+
+  }
+
+  private loadJobAppliesByJob(job: JobOffer) {
+    this.jobApplyService.getJobApplyByJobOffer(job.jobId).subscribe(jobApply => {
+      job.jobApply = jobApply;
+    })
   }
 }

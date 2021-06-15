@@ -28,12 +28,12 @@ export class CompanyService {
 
   createCompany(newCompany: Company): Observable<Company> {
 
-    return this._http.post<Company>(`${this.companyApi}/create?companyId=${newCompany.companyId}&business=${newCompany.business}&establishmentDate=${newCompany.establishmentDate}&profileDescription=${newCompany.profileDescription}&isValid=isValid&companyName=${newCompany.companyName}&userId=${newCompany.userId}&localisation=${newCompany?.localisation}`, {});
+    return this._http.post<Company>(`${this.companyApi}/create?companyId=${newCompany.companyId}&business=${newCompany.business}&establishmentDate=${newCompany.establishmentDate}&profileDescription=${newCompany.profileDescription}&isValid=true&companyName=${newCompany.companyName}&userId=${newCompany.userId}&localisation=${newCompany?.localisation}`, {});
   }
 
   updateCompany(updatedCompany: Company): Observable<Company> {
 
-    return this._http.put<Company>(`${this.companyApi}/update?companyId=${updatedCompany.companyId}&business=${updatedCompany.business}&establishmentDate=${updatedCompany.establishmentDate}&profileDescription=${updatedCompany.profileDescription}&isValid=isValid&companyName=${updatedCompany.companyName}`, {});
+    return this._http.put<Company>(`${this.companyApi}/update?companyId=${updatedCompany.companyId}&business=${updatedCompany.business}&establishmentDate=${updatedCompany.establishmentDate}&profileDescription=${updatedCompany.profileDescription}&isValid=isValid&companyName=${updatedCompany.companyName}&companyUrl=${updatedCompany.companyUrl}`, {});
   }
 
   deleteCompany(companyId: string): Observable<Company> {

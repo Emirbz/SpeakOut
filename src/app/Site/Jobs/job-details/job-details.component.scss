@@ -1,3 +1,14 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.jp_listing_right_bar_btn ul li {
+  .applied {
+    background-color: #199219;
+  }
+
+  :hover {
+    background-color: #17a417 !important;
+    border: #17a417 1px solid !important;
+  }
+}

@@ -63,7 +63,10 @@ export class NavbarComponent implements OnInit {
     if (this.isExternalAuth) {
       this._authService.signOutExternal();
     }
-    this._router.navigate(['/']);
+    this._authService.setLoggedUser({});
+    this.loggedUser = {};
+    this.isLoggedIn = false
+    this._router.navigate(['/home']);
   }
 
   isUserLoggedIn() {
@@ -100,15 +103,29 @@ export class NavbarComponent implements OnInit {
         // if user has already a company create offer is displayed
         this.hasCompany = true;
         localStorage.setItem('USER_ROLE', 'RECRUITER')
+        this.loggedUser.hasCompany = true;
 
       }
     })
 
   }
 
+  getUserResume(user: User) {
+
+    const resume = user.files?.filter(f => f.type === 'cv')[0];
+
+    if (resume !== undefined) {
+      this.loggedUser.hasResume = true;
+      localStorage.setItem('user', JSON.stringify(user));
+
+    }
+
+  }
+
   private getLoggedUser() {
     this._authService.getLoggedUser().subscribe(user => {
       if (user.id) {
+        this.getUserProfile(user.id);
         this.isLoggedIn = true;
         this.loggedUser = user;
       } else {
@@ -116,4 +133,16 @@ export class NavbarComponent implements OnInit {
       }
     })
   }
+
+  private getUserProfile(id: string) {
+    this._authService.getUserProfile(id).subscribe(user => {
+      this.loggedUser = user;
+
+      localStorage.setItem('user', JSON.stringify(user));
+      this.getUserResume(user)
+    })
+
+  }
+
+
 }

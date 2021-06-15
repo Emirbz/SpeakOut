@@ -3,8 +3,10 @@
   .company-picture {
     width: 115px;
     height: 115px;
+    object-fit: contain;
   }
 }
+
 
 .jp_job_post_right_cont {
   .truncate-text {
@@ -25,5 +27,9 @@
     background-color: #17a417 !important;
     border: #17a417 1px solid !important;
   }
+}
+
+.cursor-block {
+  cursor: not-allowed;
 }
 

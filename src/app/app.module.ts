@@ -20,6 +20,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {UpdateUserComponent} from './Site/user-profile/update-user/update-user.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {CardMyOffersComponent} from './Site/Jobs/card-my-offers/card-my-offers.component';
+import {CardMyApplicationsComponent} from './Site/Jobs/card-my-applications/card-my-applications.component';
+import {ListApplicantsComponent} from './Site/Jobs/list-applicants/list-applicants.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -38,6 +41,9 @@ export function tokenGetter() {
     JobDetailsComponent,
     CreateCompanyComponent,
     UpdateUserComponent,
+    CardMyOffersComponent,
+    CardMyApplicationsComponent,
+    ListApplicantsComponent,
   ],
   imports: [
     BrowserModule,

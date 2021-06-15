@@ -1,0 +1,17 @@
+<div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
+  <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v">
+    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v">
+      <img
+        [src]="jobOffer?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobOffer?.company?.companyUrl"
+        alt="hiring_img" class="company_image">
+      <h4>{{jobOffer?.title}}</h4>
+      <p>{{jobOffer?.localisation}}</p>
+      <ul>
+        <li (click)="displayApplicants()" class="applicants"><a
+          [class.empty]="jobOffer?.jobApply?.length===0">{{jobOffer?.jobApply?.length}} Applicants</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

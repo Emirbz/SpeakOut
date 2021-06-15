@@ -6,6 +6,7 @@ export class File {
   filePath: string;
   extension: string;
   createDate: string;
+  type: string;
 
 
   constructor() {

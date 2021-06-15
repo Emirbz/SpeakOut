@@ -1,3 +1,5 @@
+import {File} from './File';
+
 export class User {
   id?: string | undefined;
   civility?: string;
@@ -35,8 +37,10 @@ export class User {
   aspNetUserTokens?: [];
   jobOffer?: [];
   jobApply?: [];
-  files?: [];
+  files?: File [];
   userName?: string
+  hasResume?: boolean
+  hasCompany?: boolean;
 
 
   constructor() {

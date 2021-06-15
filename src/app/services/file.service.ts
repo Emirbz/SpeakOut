@@ -15,13 +15,13 @@ export class FileService {
   constructor(private _http: HttpClient) {
   }
 
-  uploadFile(file: any, userId: string): Observable<File> {
+  uploadFile(file: any, userId: string, type: string): Observable<File> {
     const formData = new FormData();
-    formData.append('containerName', 'candidates');
+    formData.append('type', type);
     formData.append('directoryName', 'images');
     formData.append('filesToImport', file);
     formData.append('userId', userId);
-    return this._http.post<File>(`${environment.storage}/Files`, formData);
+    return this._http.post<File>(`${environment.storage}/upload`, formData);
   }
 
 

@@ -29,7 +29,7 @@ export class JobApplyService {
 
   createJobApply(newJobApply: JobApply): Observable<JobApply> {
 
-    return this._http.post<JobApply>(`${this.jobApplyApi}/create`, newJobApply);
+    return this._http.post<JobApply>(`${this.jobApplyApi}/create?applyId=${newJobApply.applyId}&jobId=${newJobApply.jobId}&userId=${newJobApply.userId}&status=${newJobApply.status}&isValid=${newJobApply.isValid}&applyDate=${new Date()}`, {});
   }
 
   updateJobApply(updatedJobApply: JobApply): Observable<JobApply> {

@@ -1,4 +1,5 @@
 <div class="jp_tittle_main_wrapper">
+
   <div class="jp_tittle_img_overlay"></div>
   <div class="container">
     <div class="row">
@@ -21,8 +22,20 @@
     </div>
   </div>
 </div>
-<div *ngIf="!isUpdateUserFormActive && !isCreateCompanyActive" class="jp_cp_profile_main_wrapper">
-  <div class="container">
+
+<div class="wrapper">
+  <h1 class="text-center">Section</h1>
+
+  <div [class.left]="selectedTab===0" [class.right]="selectedTab===1" class="taeb-switch  text-center">
+    <div (click)="changeTab()" [class.active]="selectedTab===0" class="taeb">Profile</div>
+    <div (click)="changeTab()" *ngIf="hasCompany" [class.active]="selectedTab===1" class="taeb">Mes offres</div>
+    <div (click)="changeTab()" *ngIf="!hasCompany" [class.active]="selectedTab===1" class="taeb">Candidatures</div>
+  </div>
+</div>
+<div *ngIf="!isUpdateUserFormActive && !isCreateCompanyActive && selectedTab===0" [ngClass]="profileClass"
+     class="jp_cp_profile_main_wrapper"
+     style="padding-top: 20px">
+  <div class="container main-container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="jp_cp_left_side_wrapper">
@@ -43,11 +56,21 @@
 
                 </a>
                 <input #profileImgInput (change)="updateProfilePicture($event,'PROFILE')" accept="image/*" hidden
+                       style="display: none"
                        type="file">
               </ng-container>
             </div>
             <h2>{{loggedUser?.firstName}} {{loggedUser?.lastName}}</h2>
             <p><i class="fa fa-birthday-cake pl-"></i>&nbsp; {{loggedUser?.dateOfBirth | date: 'longDate'}}</p>
+            <div *ngIf="!hasCompany " class="jp_cp_rd_wrapper">
+              <ul>
+                <li *ngIf="!hasResume"><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Upload Resume</a></li>
+                <li *ngIf="hasResume"><a [href]="userResume?.filePath" target="_blank"><i class="fa fa-eye"></i> View
+                  resume</a></li>
+                <input #cvInput (change)="uploadResume($event)" accept="application/pdf" style="display: none"
+                       type="file">
+              </ul>
+            </div>
           </div>
           <div *ngIf="hasCompany" class="jp_cp_left_pro_wallpaper">
             <div class="profile-pic company-picture">
@@ -66,6 +89,7 @@
 
                 </a>
                 <input #imgCompanyInput (change)="updateProfilePicture($event,'COMPANY')" accept="image/*" hidden
+                       style="display: none"
                        type="file">
               </ng-container>
             </div>
@@ -77,18 +101,22 @@
       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <div class="jp_cp_right_side_wrapper">
           <div class="jp_cp_right_side_inner_wrapper">
-            <h2>PERSONAL DETAILS</h2>
-            <div class="jp_navi_right_btn_wrapper multiple-buttons">
 
-              <a (click)="this.isUpdateUserFormActive =true" class=" button  edit-button"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Update
-                profile
-              </a>
+            <h2 class="inline-block">PERSONAL DETAILS</h2>
+            <div [class.w-50]="!hasCompany" class="jp_navi_right_btn_wrapper multiple-buttons inline-block">
+
 
               <a (click)="this.isCreateCompanyActive =true" *ngIf="!hasCompany" class=" button  company-button"><i
                 class="fa fa-building"></i>&nbsp;&nbsp;Become a company
 
               </a>
+              <a (click)="this.isUpdateUserFormActive =true" class=" button  edit-button cursor-pointer"><i
+                class="fa fa-pencil"></i>&nbsp;&nbsp;Update
+                profile
+              </a>
+
             </div>
+
             <table>
               <tbody>
               <tr>
@@ -132,7 +160,18 @@
         <!-- Company details -->
         <div *ngIf="hasCompany" class="jp_cp_right_side_wrapper">
           <div class="jp_cp_right_side_inner_wrapper">
-            <h2>Company DETAILS</h2>
+            <h2 class="inline-block">Comapny DETAILS</h2>
+            <div class="jp_navi_right_btn_wrapper multiple-buttons inline-block  " style="width: 38%">
+
+
+              <a class=" button  company-button" style="width: 40%;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit
+
+              </a>
+              <a class=" button  edit-button" style="width: 40%;"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete
+
+              </a>
+
+            </div>
             <table>
               <tbody>
               <tr>
@@ -172,6 +211,66 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="selectedTab === 1 && hasCompany && !displayApplicantsList" [ngClass]="companyOffersClass"
+     class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="container main-container" style="margin-bottom: 61px;">
+    <div class="tab-content">
+
+      <div class="tab-pane fade active in" id="hot" role="tabpanel">
+        <div class="ss_featured_products">
+          <img *ngIf="loadedCompanyOffers.length===0" alt="no data" class="not-found"
+               src="assets/images/content/no-data.png">
+          <div class="row">
+            <app-card-my-offers (jobApplicantsEvent)="displayApplicants($event)" *ngFor="let j of loadedCompanyOffers"
+                                [jobOffer]="j"></app-card-my-offers>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div *ngIf="selectedTab === 1 && !hasCompany" [ngClass]="companyOffersClass"
+     class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="container main-container" style="margin-bottom: 61px;">
+    <div class="tab-content">
+
+      <div class="tab-pane fade active in" role="tabpanel">
+        <div class="ss_featured_products">
+          <img *ngIf="loadedUserApplies.length===0" alt="no data" class="not-found"
+               src="assets/images/content/no-data.png">
+          <div class="row">
+
+            <app-card-my-applications *ngFor="let j of loadedUserApplies" [jobApply]="j"></app-card-my-applications>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="displayApplicantsList && hasCompany" [ngClass]="companyOffersClass"
+     class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="container main-container" style="margin-bottom: 61px;">
+
+    <div class="ss_featured_products">
+
+
+      <app-list-applicants (closeEvent)="closeApplicants()" [listCandidates]="listApplicants"></app-list-applicants>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<!-- --------- -->
+
 <app-update-user (userUpdatedEvent)=" isUpdateUserFormActive=$event"
                  *ngIf="isUpdateUserFormActive && !isCreateCompanyActive"
                  [loggedUser]="loggedUser"></app-update-user>

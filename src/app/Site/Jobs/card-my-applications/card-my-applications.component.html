@@ -1,0 +1,17 @@
+<div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
+  <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v">
+    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v" style="height: 223px">
+      <img
+        [src]="jobApply?.job?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobApply?.job?.company?.companyUrl"
+        alt="hiring_img" class="company_image">
+      <h4 [routerLink]="['/jobs/',jobApply?.jobId]" class="cursor-pointer">{{jobApply?.job?.title}}</h4>
+      <p [routerLink]="['/companies/',jobApply?.job?.companyId]"
+         class="cursor-pointer">{{jobApply?.job?.company?.companyName}}</p>
+      <ul>
+        <li class="applicants"><a> {{jobApply.status}}</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

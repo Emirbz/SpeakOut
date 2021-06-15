@@ -1,3 +1,5 @@
+import {JobOffer} from './JobOffer';
+
 export class Company {
   companyId?: number;
   companyName?: string;
@@ -8,6 +10,7 @@ export class Company {
   localisation?: string;
   isValid?: boolean;
   userId?: string;
+  jobOffer?: JobOffer[];
 
 
   constructor() {

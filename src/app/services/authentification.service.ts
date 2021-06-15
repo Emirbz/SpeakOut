@@ -9,7 +9,6 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {StorageService} from './storage.service';
 import {User} from '../models/user';
 import {apiConfig} from '../config/apiConfig';
-import {Company} from '../models/Company';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -68,13 +67,13 @@ export class AuthentificationService {
     return this.loggedUser;
   }
 
-  getUserProfile(userId: String): Observable<User> {
+  getUserProfile(userId: String | undefined): Observable<User> {
     return this._http.get<User>(`${this.userApi}/byId?id=${userId}`);
 
   }
 
   updateUser(updatedUser: User): Observable<User> {
 
-    return this._http.put<Company>(`${this.userApi}/update`, updatedUser);
+    return this._http.put<User>(`${this.userApi}/update`, updatedUser);
   }
 }

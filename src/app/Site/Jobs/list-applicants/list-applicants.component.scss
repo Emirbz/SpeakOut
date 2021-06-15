@@ -1,0 +1,65 @@
+.jp_recent_resume_img_wrapper {
+  .resume_img {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 1px solid #00b5e4;
+  }
+}
+
+.jp_recent_resume_btn_wrapper ul li {
+  .accept {
+    background-color: #1aa93c;
+
+  }
+
+  .refuse {
+    background-color: #d64444;
+  }
+
+  a {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+}
+
+.button {
+  float: right;
+  width: 99px;
+  height: 27px;
+  line-height: 26px;
+  color: #ffffff;
+  text-align: center;
+  /* text-transform: uppercase; */
+  display: inline-block;
+  border-radius: 10px;
+  transition: all 0.5s;
+
+  &.edit-button {
+    border: 1px solid #f36969;
+    background: #f36969;
+  }
+
+  :hover {
+    border: 1px solid #e26e6e;
+    color: white !important;
+
+  }
+
+  &.company-button {
+    border: 1px solid #aeaeae;
+    background: #aeaeae;
+    width: 50%;
+    margin-right: 10px;
+  }
+
+  :hover {
+    border: 1px solid #aeaeae;
+
+  }
+
+  &:hover {
+    color: white !important;
+  }
+}

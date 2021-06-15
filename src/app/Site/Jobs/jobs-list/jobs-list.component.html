@@ -147,13 +147,13 @@
                 <div class="row">
                   <div *ngFor="let j of loadedJobs" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
-                      <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper">
+                      <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper" style="height: 231px">
                         <div class="row">
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_job_post_side_img">
-                              <img
-                                [src]="j?.company?.companyUrl === null ? 'images/content/job_post_img4.jpg' : j?.company?.companyUrl"
-                                alt="company_img">
+                              <img class="company-picture"
+                                   [src]="j?.company?.companyUrl === null ? 'images/content/job_post_img4.jpg' : j?.company?.companyUrl"
+                                   alt="company_img">
                             </div>
                             <div class="jp_job_post_right_cont jp_job_post_grid_right_cont">
                               <h4 [routerLink]="['/jobs/',j?.jobId]"
@@ -162,24 +162,34 @@
                                  class="cursor-pointer">{{j?.company?.companyName}}</p>
                               <ul>
                                 <li><i
-                                  class="fa fa-cc-paypal"></i>&nbsp; {{shortenTitle(j?.salaire + ' Per year', 28, 0, 28)}}
+                                  class="fa fa-money"></i>&nbsp; {{shortenTitle(j?.salaire + ' Per year', 28, 0, 28)}}
                                 </li>
-                                <li><i class="fa fa-map-marker"></i>&nbsp; {{j?.localisation}}</li>
+                                <li class="localisation"><i class="fa fa-map-marker"></i>&nbsp; {{j?.localisation}}</li>
                               </ul>
                             </div>
                           </div>
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
+                          <div *ngIf="loggedUser?.hasResume" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper"
+                                 style="float: right">
                               <ul>
                                 <li>
                                   <a *ngIf="checkUserHasApplied(j)" class="applied"><i class="fa fa-check"></i> Applied</a>
-                                  <a *ngIf="!checkUserHasApplied(j)">Apply</a>
+                                  <a (click)="applyJob(j)"
+                                     *ngIf="!checkUserHasApplied(j) && loggedUser.hasResume && !loggedUser?.hasCompany">Apply</a>
                                 </li>
                               </ul>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div class="jp_job_post_keyword_wrapper">
+                        <ul>
+                          <li><i class="fa fa-tags"></i>Categorie :</li>
+
+                          <li><a>{{j?.categorie}} </a></li>
+                        </ul>
+                      </div>
+
                     </div>
                   </div>
 
@@ -205,20 +215,33 @@
                               <p [routerLink]="['/companies/',job?.companyId]"
                                  class="cursor-pointer">{{job?.company?.companyName}}</p>
                               <ul>
-                                <li><i class="fa fa-cc-paypal"></i>&nbsp; {{job?.salaire}} Per year</li>
-                                <li><i class="fa fa-map-marker"></i>&nbsp; {{job?.localisation}}</li>
+                                <li><i class="fa fa-money"></i>&nbsp; {{job?.salaire}} Per year</li>
+                                <li class="localisation"><i class="fa fa-map-marker"></i>&nbsp; {{job?.localisation}}
+                                </li>
                               </ul>
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="jp_job_post_right_btn_wrapper">
                               <ul>
-                                <li><a href="#">{{job?.categorie}}</a></li>
-
+                                <li>
+                                  <a *ngIf="checkUserHasApplied(job)" class="applied"><i class="fa fa-check"></i>
+                                    Applied</a>
+                                  <a (click)="applyJob(job)"
+                                     *ngIf="!checkUserHasApplied(job) && loggedUser.hasResume && !loggedUser?.hasCompany">Apply</a>
+                                </li>
                               </ul>
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="jp_job_post_keyword_wrapper">
+                        <ul>
+                          <li><i class="fa fa-tags"></i>Categorie :</li>
+
+
+                          <li><a>{{job?.categorie}}</a></li>
+                        </ul>
                       </div>
 
                     </div>
