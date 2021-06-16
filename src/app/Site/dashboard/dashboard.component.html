@@ -42,10 +42,10 @@
                               <div class="jp_job_post_right_btn_wrapper">
                                 <ul>
                                   <li>
-                                    <a *ngIf="checkUserHasApplied(j)" class="applied"><i class="fa fa-check"></i>
+                                    <a *ngIf="j?.userApplied" class="applied"><i class="fa fa-check"></i>
                                       Applied</a>
                                     <a (click)="applyJob(j)"
-                                       *ngIf="!checkUserHasApplied(j) && loggedUser?.hasResume && !loggedUser?.hasCompany">Apply</a>
+                                       *ngIf="!j?.userApplied && loggedUser?.hasResume && !loggedUser?.hasCompany">Apply</a>
                                   </li>
                                 </ul>
                               </div>

@@ -24,12 +24,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getLoggedUser();
     this.loadJobOffers();
+
   }
 
 
   loadJobOffers() {
     this.jobOfferService.getAllJobOffers(null).subscribe(jobs => {
       this.loadedJobs = jobs.map(job => {
+
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);
         return job;
@@ -43,15 +45,12 @@ export class DashboardComponent implements OnInit {
   }
 
   checkUserHasApplied(job: JobOffer) {
-
-    if (job.jobApply !== undefined && this.loggedUser) {
-
-      return job.jobApply.some(jobApply => jobApply.userId === this.loggedUser.id);
-    }
-    return false;
+    console.log(job.jobApply.some(jobApply => jobApply.userId === this.loggedUser.id))
+    job.userApplied = job.jobApply.some(jobApply => jobApply.userId === this.loggedUser.id);
   }
 
   applyJob(job: JobOffer) {
+    job.userApplied = true;
     const jobApply = new JobApply();
     jobApply.applyId = Math.floor(Math.random() * 145879) + 1;
     jobApply.userId = this.loggedUser.id;
@@ -60,9 +59,10 @@ export class DashboardComponent implements OnInit {
     jobApply.jobId = job.jobId;
     this.jobApplyService.createJobApply(jobApply).subscribe(value => {
       this.toastr.success('Job Applied', 'Your Apply have been sent successfully');
-      const jobOffer = this.loadedJobs.find(j => j.jobId = job.jobId);
-      // @ts-ignore
+      const jobOffer = this.loadedJobs.find(j => j.jobId = job.jobId) as JobOffer;
+
       jobOffer.jobApply.push(jobApply);
+
 
 
     })
@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit {
   private loadJobAppliesByJob(job: JobOffer) {
     this.jobApplyService.getJobApplyByJobOffer(job.jobId).subscribe(jobApply => {
       job.jobApply = jobApply;
+      this.checkUserHasApplied(job)
     })
   }
 }

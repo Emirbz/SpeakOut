@@ -3,6 +3,7 @@ import {apiConfig} from '../config/apiConfig';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {JobOffer} from '../models/JobOffer';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,10 @@ export class JobOfferService {
   constructor(private _http: HttpClient) {
   }
 
-  getAllJobOffers(): Observable<JobOffer[]> {
-    return this._http.get<JobOffer[]>(this.jobOfferApi);
+    getAllJobOffers(title: string | null): Observable<JobOffer[]> {
+      const url = title != null ? `${environment.apiUrl}/JobOfferByTitle?title=${title}` : this.jobOfferApi;
+
+      return this._http.get<JobOffer[]>(url);
   }
 
   getJobOfferById(jobOfferId: string | null): Observable<JobOffer> {

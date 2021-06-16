@@ -32,9 +32,9 @@ export class JobApplyService {
     return this._http.post<JobApply>(`${this.jobApplyApi}/create?applyId=${newJobApply.applyId}&jobId=${newJobApply.jobId}&userId=${newJobApply.userId}&status=${newJobApply.status}&isValid=${newJobApply.isValid}&applyDate=${new Date()}`, {});
   }
 
-  updateJobApply(updatedJobApply: JobApply): Observable<JobApply> {
+  updateJobApply(updatedJobApply: JobApply ): Observable<JobApply> {
 
-    return this._http.put<JobApply>(this.jobApplyApi, updatedJobApply);
+    return this._http.put<JobApply>(`${this.jobApplyApi}/update?applyId=${updatedJobApply.applyId}&jobId=${updatedJobApply.jobId}&userId=${updatedJobApply.userId}&status=${updatedJobApply.status}&isValid=${updatedJobApply.isValid}&applyDate=${new Date()}`, {});
   }
 
   deleteJobApply(jobOfferId: string): Observable<JobApply> {
