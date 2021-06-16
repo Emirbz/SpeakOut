@@ -7,14 +7,22 @@
           <div class="jp_recent_resume_img_wrapper">
             <img [src]="u?.photoUrl" alt="resume_img" class="resume_img">
           </div>
-          <div class="jp_recent_resume_cont_wrapper">
+          <div class="jp_recent_resume_cont_wrapper" style="width: 50%;">
             <h3>{{u?.firstName |titlecase}}  {{u?.lastName| titlecase}}</h3>
             <p><i class="fa fa-folder-open-o"></i> <a href="#">{{u?.email}}</a></p>
+            <h5 class="status"   *ngIf="u?.selectedJobApply?.status === 'ACCEPTED' ||u?.selectedJobApply?.status === 'DECLINED' ||u?.selectedJobApply?.status === 'PENDING'">
+              Application is {{u?.selectedJobApply?.status?.toLowerCase()}}
+            </h5>
+
           </div>
-          <div class="jp_recent_resume_btn_wrapper">
+          <div class="jp_recent_resume_btn_wrapper" style="width: 42%;">
             <ul>
-              <li><a class="accept">Accept</a></li>
-              <li><a class="refuse">Refuse</a></li>
+              <li><a class="cursor-pointer" [href]="u?.resume?.filePath" target="_blank"><i class="fa fa-eye"></i> View
+                resume</a></li>
+              <ng-container>
+                <li><a class="accept cursor-pointer" (click)="updateJobApplyStatus(u,'ACCEPTED')">Accept</a></li>
+                <li><a class="refuse cursor-pointer" (click)="updateJobApplyStatus(u,'DECLINED')">Refuse</a></li>
+              </ng-container>
             </ul>
           </div>
         </div>

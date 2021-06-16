@@ -34,7 +34,7 @@ export class CompaniesListComponent implements OnInit {
 
 
   private loadJobOffer() {
-    this.jobOfferService.getAllJobOffers().subscribe(jobOffers => {
+    this.jobOfferService.getAllJobOffers(null).subscribe(jobOffers => {
       this.loadedJobOffers = jobOffers;
       this.loadCompanies();
     })

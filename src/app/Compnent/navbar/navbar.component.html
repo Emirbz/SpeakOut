@@ -24,13 +24,13 @@
                 </li>
                 <li class="has-mega gc_main_navigation">
                   <a *ngIf="hasCompany" class="gc_main_navigation"> Jobs&nbsp;<i class="fa fa-angle-down"></i></a>
-                  <a *ngIf="!hasCompany" class="gc_main_navigation" routerLink="/jobs"> Jobs&nbsp;</a>
+                  <a *ngIf="!hasCompany" class="gc_main_navigation" [routerLink]="['/jobs']"> Jobs&nbsp;</a>
                   <!-- mega menu start -->
                   <ul *ngIf="hasCompany">
                     <li *ngIf="isLoggedIn && loggedUser && hasCompany" class="parent"><a routerLink="/jobs/create">Create
                       offer </a>
                     </li>
-                    <li class="parent"><a routerLink="/jobs">Jobs list</a></li>
+                    <li class="parent"><a [routerLink]="['/jobs']">Jobs list</a></li>
 
                   </ul>
                 </li>

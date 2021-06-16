@@ -24,11 +24,21 @@ export class CardMyOffersComponent implements OnInit {
       const jobApplicants: User[] = [];
       this.jobOffer.jobApply.forEach(job => {
         this.authentificationService.getUserProfile(job.userId).subscribe(user => {
+          user.resume = this.getUserResume(user);
+          user.selectedJobApply = job;
           jobApplicants.push(user);
           this.jobApplicantsEvent.emit(jobApplicants);
         })
 
       })
+
     }
+  }
+
+  getUserResume(user: User) {
+
+    return user.files?.filter(f => f.type === 'cv')[user.files?.filter(f => f.type === 'cv').length - 1];
+
+
   }
 }

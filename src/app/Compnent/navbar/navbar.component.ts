@@ -112,7 +112,7 @@ export class NavbarComponent implements OnInit {
 
   getUserResume(user: User) {
 
-    const resume = user.files?.filter(f => f.type === 'cv')[0];
+    const resume = user.files?.filter(f => f.type === 'cv')[user.files?.filter(f => f.type === 'cv').length - 1];
 
     if (resume !== undefined) {
       this.loggedUser.hasResume = true;

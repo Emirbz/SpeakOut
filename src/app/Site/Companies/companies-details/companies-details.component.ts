@@ -29,7 +29,7 @@ export class CompaniesDetailsComponent implements OnInit {
   loadJobOffers() {
     const id = this.route.snapshot.paramMap.get('id') as string;
     // get all jobs offers and filter by company id
-    this.jobOfferService.getAllJobOffers().subscribe(jobs => {
+    this.jobOfferService.getAllJobOffers(null).subscribe(jobs => {
       this.loadedJobs = jobs.filter(j => String(j.companyId) === id);
 
     }, error => {

@@ -2119,7 +2119,7 @@ ul{
 .jp_best_deal_main_wrapper{
 	float:left;
 	width:100%;
-	background:url('../images/index_iv/offer_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/index_iv/offer_bg.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	padding-top:100px;
@@ -2432,7 +2432,7 @@ ul{
 .jp_counter_main_wrapper{
 	float:left;
 	width:100%;
-	background:url('../images/index_iv/counter_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/index_iv/counter_bg.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	position:relative;
@@ -2647,7 +2647,7 @@ ul{
   transition: all 0.5s;
 }
 .jp_recent_resume_box_wrapper:hover .jp_recent_resume_btn_wrapper li a{
-	background:#f36969;
+	//background:#f36969;
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -2728,7 +2728,7 @@ ul{
 /*-- jp recent resume Wrapper End --*/
 /*-- jp testi slider Wrapper Start --*/
 .jp_testi_slider_main_wrapper{
-	background:url('../images/content/testi_slider_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/content/testi_slider_bg.jpg') 50% 0 repeat-y;*/
 	background-size:cover;
 	background-position:center 0;
 	background-repeat:no-repeat;
@@ -2911,7 +2911,7 @@ ul{
 /*-- jp client slider wrapper End --*/
 /*-- jp downlord Wrapper Start --*/
 .jp_downlord_main_wrapper{
-	background:url('../images/content/down_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/content/down_bg.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	background-repeat:no-repeat;
@@ -3193,7 +3193,7 @@ ul{
 /*-- Newsletter css End --*/
 /*-- jp footer Wrapper Start --*/
 .jp_main_footer_img_wrapper{
-	background:url('../images/content/footer_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/content/footer_bg.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	background-repeat:no-repeat;
@@ -4505,7 +4505,7 @@ ul{
 .jp_bottom_footer_Wrapper_header_img_wrapper{
 	float:left;
 	width:100%;
-	background:url('../images/content/listing_bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/content/listing_bg.jpg') 50% 0 repeat-y;*/
 	background-position:center 0;
 	background-size:cover;
 	height:100%;
@@ -5089,7 +5089,7 @@ input[type="checkbox"] + label:before {
 	border-radius:4px;
   font: 16px/1em sans-serif;
   height: 16px;
-  margin: .20em .56em .0 .0;
+  /*margin: .20em .56em .0 .0;*/
   padding: 0;
   vertical-align: top;
   width: 16px;
@@ -5252,9 +5252,9 @@ input[type="checkbox"]:checked + label:after {
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
     z-index: 2;
     color: #fff;
-	border:1px solid #f36969;
+	/*border:1px solid #f36969;*/
     background-color: #f36969;
-    border-color: none;
+    /*border-color: none;*/
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -6494,7 +6494,7 @@ input[type="checkbox"]:checked + label:after {
 	color:#22c0e9;
 }
 .jp_add_resume_wrapper{
-	background:url('../images/content/resume-bg.jpg') 50% 0 repeat-y;
+	/*background:url('../images/content/resume-bg.jpg') 50% 0 repeat-y;*/
 	width:100%;
 	height:100%;
 	background-position:center 0;
@@ -7098,7 +7098,7 @@ input[type="checkbox"]:checked + label:after {
 }
 .login_wrapper .form-control:focus {
   color: #999;
-  background-color: fafafa;
+  /*background-color: fafafa;*/
   border: 1px solid #f36969 !important;
 }
 .login_wrapper  .formsix-pos,.formsix-e{
@@ -8138,7 +8138,7 @@ input[type="checkbox"]:checked + label:after {
 }
 .chat-box-body:after {
 	content: "";
-  background-image: url(../images/content/chat.png);
+  /*background-image: url(../images/content/chat.png);*/
   height: 100%;
   background-position: center 0;
   background-size: cover;

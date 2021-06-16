@@ -2657,7 +2657,7 @@ ul{
   transition: all 0.5s;
 }
 .jp_recent_resume_box_wrapper:hover .jp_recent_resume_btn_wrapper li a{
-	background:#f36969;
+	//background:#f36969;
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;

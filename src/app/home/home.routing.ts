@@ -36,5 +36,5 @@ export const HomeRoutes: Routes = [
   {path: 'companies/:id', component: CompaniesDetailsComponent},
   {path: 'jobs/create', component: CreateOfferComponent, canActivate: [AuthGuardGuard], data: {roles: ['RECRUITER']}},
   {path: 'jobs', component: JobsListComponent},
-  {path: 'jobs/:id', component: JobDetailsComponent},
+  {path: 'job/:id', component: JobDetailsComponent},
 ];

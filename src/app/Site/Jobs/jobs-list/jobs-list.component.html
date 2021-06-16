@@ -156,7 +156,7 @@
                                    alt="company_img">
                             </div>
                             <div class="jp_job_post_right_cont jp_job_post_grid_right_cont">
-                              <h4 [routerLink]="['/jobs/',j?.jobId]"
+                              <h4 [routerLink]="['/job/',j?.jobId]"
                                   class="cursor-pointer"> {{  shortenTitle(j.title, 52, 0, 52) }}</h4>
                               <p [routerLink]="['/companies/',j?.companyId]"
                                  class="cursor-pointer">{{j?.company?.companyName}}</p>
@@ -211,7 +211,7 @@
                                    alt="company_img" class="company-picture">
                             </div>
                             <div class="jp_job_post_right_cont">
-                              <h4 [routerLink]="['/jobs/',job?.jobId]" class="cursor-pointer">{{job?.title}}</h4>
+                              <h4 [routerLink]="['/job/',job?.jobId]" class="cursor-pointer">{{job?.title}}</h4>
                               <p [routerLink]="['/companies/',job?.companyId]"
                                  class="cursor-pointer">{{job?.company?.companyName}}</p>
                               <ul>

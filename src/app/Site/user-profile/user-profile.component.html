@@ -64,9 +64,8 @@
             <p><i class="fa fa-birthday-cake pl-"></i>&nbsp; {{loggedUser?.dateOfBirth | date: 'longDate'}}</p>
             <div *ngIf="!hasCompany " class="jp_cp_rd_wrapper">
               <ul>
-                <li *ngIf="!hasResume"><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Upload Resume</a></li>
-                <li *ngIf="hasResume"><a [href]="userResume?.filePath" target="_blank"><i class="fa fa-eye"></i> View
-                  resume</a></li>
+                <li ><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Upload Resume</a></li>
+                <li *ngIf="hasResume"><a class="view-resume" [href]="userResume?.filePath" target="_blank"><i class="fa fa-eye"></i> View resume</a></li>
                 <input #cvInput (change)="uploadResume($event)" accept="application/pdf" style="display: none"
                        type="file">
               </ul>
@@ -260,7 +259,7 @@
     <div class="ss_featured_products">
 
 
-      <app-list-applicants (closeEvent)="closeApplicants()" [listCandidates]="listApplicants"></app-list-applicants>
+      <app-list-applicants (closeEvent)="closeApplicants()"  [listCandidates]="listApplicants"></app-list-applicants>
 
     </div>
 

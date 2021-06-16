@@ -115,7 +115,7 @@ export class UserProfileComponent implements OnInit {
 
   getUserResume(user: User) {
 
-    const resume = user.files?.filter(f => f.type === 'cv')[0];
+    const resume = user.files?.filter(f => f.type === 'cv')[user.files?.filter(f => f.type === 'cv').length - 1];
 
     if (resume !== undefined) {
       this.hasResume = true;
@@ -211,7 +211,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   private loadCompanyOffers() {
-    this.jobOfferService.getAllJobOffers().subscribe(jobOffers => {
+
+    this.jobOfferService.getAllJobOffers(null).subscribe(jobOffers => {
       this.loadedCompanyOffers = jobOffers.filter(j => j.companyId === this.loggedUserCompany.companyId).map(job => {
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);

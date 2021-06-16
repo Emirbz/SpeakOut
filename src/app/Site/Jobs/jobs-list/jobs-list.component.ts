@@ -6,6 +6,7 @@ import {User} from '../../../models/user';
 import {AuthentificationService} from '../../../Services/authentification.service';
 import {JobApply} from '../../../models/JobApply';
 import {ToastrService} from 'ngx-toastr';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-jobs-list',
@@ -21,7 +22,8 @@ export class JobsListComponent implements OnInit {
   constructor(private jobOfferService: JobOfferService,
               private jobApplyService: JobApplyService,
               private authentificationService: AuthentificationService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -31,7 +33,9 @@ export class JobsListComponent implements OnInit {
 
 
   loadJobOffers() {
-    this.jobOfferService.getAllJobOffers().subscribe(jobs => {
+    const title = this.route.snapshot.queryParamMap.get('title');
+
+    this.jobOfferService.getAllJobOffers(title).subscribe(jobs => {
       this.loadedJobs = jobs.map(job => {
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);

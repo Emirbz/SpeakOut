@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../../models/user';
+import {JobApplyService} from '../../../Services/job-apply.service';
+import {JobApply} from '../../../models/JobApply';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-applicants',
@@ -8,9 +11,12 @@ import {User} from '../../../models/user';
 })
 export class ListApplicantsComponent implements OnInit {
   @Input() listCandidates: User [];
+  @Input() jobApply: JobApply;
   @Output() closeEvent = new EventEmitter<boolean>();
 
-  constructor() {
+
+  constructor(private jobApplyService: JobApplyService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -19,5 +25,15 @@ export class ListApplicantsComponent implements OnInit {
   close() {
     this.closeEvent.emit(false);
 
+  }
+
+  updateJobApplyStatus(user: User, status: 'ACCEPTED' | 'DECLINED') {
+    // @ts-ignore
+    user.selectedJobApply.status = status;
+    // @ts-ignore
+    this.jobApplyService.updateJobApply(user.selectedJobApply).subscribe(() => {
+      this.toastr.success('Application status updated', 'The application has been ' + status.toLocaleLowerCase());
+
+    })
   }
 }

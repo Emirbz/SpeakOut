@@ -9,3 +9,31 @@
   height: 110px;
   object-fit: contain;
 }
+
+.accepted a{
+  background-color: #1aa93c !important;
+  border-color: #1aa93c!important;
+
+}.accepted a:hover{
+   background-color: #1aa93c !important;
+   border-color: #1aa93c!important;
+
+ }
+.declined a{
+  background-color: #ef3131 !important;
+  border-color: #ef3131!important;
+
+}.declined a:hover{
+   background-color: #ef3131 !important;
+   border-color: #ef3131;
+
+ }
+.pending a  {
+  background-color: #e0a812 !important;
+  border-color: #e0a812;
+
+} .pending a:hover{
+
+    background-color: #e0a812 !important;
+    border-color: #e0a812;
+  }

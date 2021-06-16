@@ -4,11 +4,12 @@
       <img
         [src]="jobApply?.job?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobApply?.job?.company?.companyUrl"
         alt="hiring_img" class="company_image">
-      <h4 [routerLink]="['/jobs/',jobApply?.jobId]" class="cursor-pointer">{{jobApply?.job?.title}}</h4>
+      <h4 [routerLink]="['/job/',jobApply?.jobId]" class="cursor-pointer">{{jobApply?.job?.title}}</h4>
       <p [routerLink]="['/companies/',jobApply?.job?.companyId]"
          class="cursor-pointer">{{jobApply?.job?.company?.companyName}}</p>
       <ul>
-        <li class="applicants"><a> {{jobApply.status}}</a>
+        <li [class.declined]="jobApply?.status==='DECLINED'" [class.pending]="jobApply?.status==='PENDING'"
+            [class.accepted]="jobApply?.status==='ACCEPTED'" class="applicants"><a> {{jobApply.status}}</a>
         </li>
 
       </ul>

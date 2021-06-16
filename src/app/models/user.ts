@@ -1,4 +1,5 @@
 import {File} from './File';
+import {JobApply} from './JobApply';
 
 export class User {
   id?: string | undefined;
@@ -41,6 +42,8 @@ export class User {
   userName?: string
   hasResume?: boolean
   hasCompany?: boolean;
+  resume?: File
+  selectedJobApply?: JobApply
 
 
   constructor() {

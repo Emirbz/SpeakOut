@@ -21,7 +21,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="jp_cs_com_info_wrapper">
           <div class="jp_cs_com_info_img">
-            <img alt="job_img" src="assets/images/content/cs1.jpg">
+            <img    [src]="loadedCompany?.companyUrl === null ? 'assets/images/content/web.png' : loadedCompany?.companyUrl">
           </div>
           <div class="jp_cs_com_info_img_cont">
             <h2>{{loadedCompany?.companyName}}</h2>
@@ -64,10 +64,10 @@
                               <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                   <div class="jp_job_post_side_img">
-                                    <img alt="post_img" src="assets/images/content/job_post_img1.jpg">
+                                    <img    [src]="loadedCompany?.companyUrl === null ? 'assets/images/content/web.png' : loadedCompany?.companyUrl">
                                   </div>
                                   <div class="jp_job_post_right_cont jp_cl_job_cont">
-                                    <h4 [routerLink]="['/jobs/',job?.jobId]" class="cursor-pointer">{{job?.title}}</h4>
+                                    <h4 [routerLink]="['/job/',job?.jobId]" class="cursor-pointer">{{job?.title}}</h4>
                                     <p>{{job?.categorie}}</p>
                                     <ul>
                                       <li><i class="fa fa-map-marker"></i>&nbsp; {{job.localisation}}</li>

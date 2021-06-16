@@ -23,6 +23,18 @@
   }
 
 }
+.jp_recent_resume_btn_wrapper:hover{
+  background-color: unset!important;
+}
+.status{
+  width: 50%;
+  background-color: aliceblue;
+  /* border: red 1px solid; */
+  padding: 6px 0px;
+  text-align: center;
+  color: #656565;
+  margin-left: -4px;
+}
 
 .button {
   float: right;
@@ -39,9 +51,7 @@
   &.edit-button {
     border: 1px solid #f36969;
     background: #f36969;
-  }
-
-  :hover {
+  }.edit-button:hover {
     border: 1px solid #e26e6e;
     color: white !important;
 
@@ -62,4 +72,7 @@
   &:hover {
     color: white !important;
   }
+}
+.cursor-pointer{
+  cursor: pointer;
 }

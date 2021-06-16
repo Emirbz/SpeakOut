@@ -1415,7 +1415,7 @@ ul {
 }
 
 .jp_hiring_content_main_wrapper:hover .jp_hiring_content_wrapper li a {
-  background: #f36969;
+  /*background: #f36969;*/
   -webkit-transition: all 0.5s;
   -o-transition: all 0.5s;
   -ms-transition: all 0.5s;
