@@ -7,6 +7,7 @@ import {CreateOfferComponent} from '../Site/Jobs/create-offer/create-offer.compo
 import {JobsListComponent} from '../Site/Jobs/jobs-list/jobs-list.component';
 import {JobDetailsComponent} from '../Site/Jobs/job-details/job-details.component';
 import {AuthGuardGuard} from '../shared/guard/auth-guard.guard';
+import {UpdateJobComponent} from '../Site/Jobs/update-job/update-job.component';
 
 
 export const HomeRoutes: Routes = [
@@ -36,5 +37,6 @@ export const HomeRoutes: Routes = [
   {path: 'companies/:id', component: CompaniesDetailsComponent},
   {path: 'jobs/create', component: CreateOfferComponent, canActivate: [AuthGuardGuard], data: {roles: ['RECRUITER']}},
   {path: 'jobs', component: JobsListComponent},
+  {path: 'jobs/update/:id', component: UpdateJobComponent},
   {path: 'job/:id', component: JobDetailsComponent},
 ];

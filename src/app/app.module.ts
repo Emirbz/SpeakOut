@@ -23,6 +23,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {CardMyOffersComponent} from './Site/Jobs/card-my-offers/card-my-offers.component';
 import {CardMyApplicationsComponent} from './Site/Jobs/card-my-applications/card-my-applications.component';
 import {ListApplicantsComponent} from './Site/Jobs/list-applicants/list-applicants.component';
+import {UpdateJobComponent} from './Site/Jobs/update-job/update-job.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,6 +45,7 @@ export function tokenGetter() {
     CardMyOffersComponent,
     CardMyApplicationsComponent,
     ListApplicantsComponent,
+    UpdateJobComponent,
   ],
   imports: [
     BrowserModule,

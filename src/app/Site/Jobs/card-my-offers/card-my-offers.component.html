@@ -1,6 +1,14 @@
 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
-  <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v">
-    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v">
+
+  <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v" style="height: 275px">
+    <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
+      <ul>
+        <li><a><i class="fa fa-trash-o"></i></a><a class="edit" [routerLink]="['/jobs/update/',jobOffer?.jobId]"><i class="fa fa-pencil"></i></a></li>
+
+      </ul>
+    </div>
+    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v center-elements">
+
       <img
         [src]="jobOffer?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobOffer?.company?.companyUrl"
         alt="hiring_img" class="company_image">
@@ -15,3 +23,4 @@
     </div>
   </div>
 </div>
+

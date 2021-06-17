@@ -10,11 +10,11 @@
     height: 80px;
   }
 
-  a {
+  >ul li  a {
     background-color: #1cd65f;
   }
 
-  .empty {
+  >ul li  .empty {
     background-color: #f36969;
   }
 }
@@ -24,3 +24,35 @@
   height: 110px;
   object-fit: contain;
 }
+
+.jp_job_post_right_btn_wrapper li:last-child {
+  margin-top: 0 !important;
+}
+.jp_job_post_right_btn_wrapper{
+  a{
+    width: 29px;
+    margin-left: 10px;
+
+  }
+  .edit{
+    background-color: #29c7b9;
+
+  }
+}
+.center-elements{
+  position: relative!important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: table!important;
+}
+
+.jp_job_post_right_btn_wrapper ul {
+
+   margin-top: 0!important;
+  margin-right: 16px!important;
+}
+
+
+
+
+

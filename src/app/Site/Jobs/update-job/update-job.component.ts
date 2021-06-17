@@ -1,54 +1,52 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {JobOfferService} from '../../../Services/job-offer.service';
-import {JobOffer} from '../../../models/JobOffer';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {JobOffer} from '../../../models/JobOffer';
 import {User} from '../../../models/user';
-import {Company} from '../../../models/Company';
 import {CompanyService} from '../../../Services/company.service';
+import {Company} from '../../../models/Company';
 
 @Component({
-  selector: 'app-create-offer',
-  templateUrl: './create-offer.component.html',
-  styleUrls: ['./create-offer.component.scss', '../../../../assets/css/style_II.css']
+  selector: 'app-update-job',
+  templateUrl: './update-job.component.html',
+  styleUrls: ['./update-job.component.scss', '../../../../assets/css/style_II.css']
 })
-export class CreateOfferComponent implements OnInit {
+export class UpdateJobComponent implements OnInit {
   offerFormGroup: FormGroup;
   isFormSubmitted: boolean = false;
   jobSalary: string[] = [];
   jobCategory: string[] = [];
   jobSalaryError: boolean = false;
   jobCategoryError: boolean = false;
-  loggedUser: User;
+  loadedJobOffer: JobOffer;
   userCompany: Company;
+  loggedUser: User;
 
   constructor(private formBuilder: FormBuilder,
-              private companyService: CompanyService,
               private jobOfferService: JobOfferService,
               private router: Router,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private route: ActivatedRoute,
+              private companyService: CompanyService) {
   }
 
   ngOnInit(): void {
     this.offerFormValidate();
-    this.getUserCompany();
+    this.loadSingleJobOffer();
   }
 
-  getUserCompany() {
-    const user = JSON.parse(<string>localStorage.getItem('user')) as User;
-    this.companyService.getCompanyByUserId(user.id).subscribe(company => {
-      if (company.companyId && company.companyId > 0) {
-        // if user has already a company create offer is displayed
-        this.userCompany = company;
 
-      }
-    })
-
-  }
+  private loadSingleJobOffer() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.jobOfferService.getJobOfferById(id).subscribe(job => {
+      this.loadedJobOffer = job;
+      this.patchJobOfferFormValues();
+    });
+  };
 
   offerFormValidate() {
-
     // job salary static attributes
     this.jobSalary = ['Job Salary', '10K DT - 14K DT', 'DT 14K DT - 18K DT', 'DT 18K DT - 22k DT', '22K DT - 30K DT', '+30K DT'];
 
@@ -66,7 +64,30 @@ export class CreateOfferComponent implements OnInit {
 
   }
 
-  createOffer() {
+  patchJobOfferFormValues() {
+    const selectedCategory = this.jobCategory.find(item => item === this.loadedJobOffer.categorie);
+    const selectedSalary = this.jobSalary.find(item => item === this.loadedJobOffer.salaire);
+
+    console.log(selectedCategory)
+    console.log(selectedSalary)
+    this.offerFormGroup.patchValue({
+      salaire: selectedSalary,
+      categorie: selectedCategory,
+      jobDescription: this.loadedJobOffer?.jobDescription,
+      localisation: this.loadedJobOffer?.localisation,
+      title: this.loadedJobOffer?.title,
+    });
+  }
+
+  updateOffer() {
+
+
+    // get user
+    const user = JSON.parse(<string>localStorage.getItem('user')) as User;
+
+    // get company id
+    const jobId = this.route.snapshot.paramMap.get('id');
+
     // check whenever default job salary value is still selected
     if (this.offerFormGroup.value.salaire instanceof Array) {
       this.jobSalaryError = true;
@@ -86,20 +107,20 @@ export class CreateOfferComponent implements OnInit {
       // get form value and cast is as jobOffer
       const jobOfferToSave = {...this.offerFormGroup.value} as JobOffer;
 
-      // set static user
-      jobOfferToSave.userId = this.loggedUser.id as string;
-      // set random id
-      jobOfferToSave.jobId = Math.floor(Math.random() * 145879) + 1;
-      // set static company
-      jobOfferToSave.companyId = this.userCompany.companyId as number;
+      // set  user
+      jobOfferToSave.userId = user.id as string;
+      // set  id
+      jobOfferToSave.jobId = jobId as unknown as number;
+      // set  company
+      jobOfferToSave.companyId = this.loadedJobOffer.companyId;
 
       // set valid to true
       jobOfferToSave.isValid = true;
       // set active to true
       jobOfferToSave.isActive = true;
       // save data to db
-      this.jobOfferService.createJobOffer(jobOfferToSave).subscribe(() => {
-        this.toastr.success('Job created', 'Your job have been created successfully');
+      this.jobOfferService.updateJobOffer(jobOfferToSave).subscribe(() => {
+        this.toastr.success('Job update', 'Your job have been updated successfully');
         // on success navigate to job offers list
         this.router.navigate(['/jobs']);
       })
