@@ -75,6 +75,7 @@ export class NavbarComponent implements OnInit {
       this._authService.setLoggedUser(user);
       this.loggedUser = user;
       this.isLoggedIn = true;
+      this.checkUserGotCompany(user.id);
     }
 
 
@@ -125,13 +126,14 @@ export class NavbarComponent implements OnInit {
   private getLoggedUser() {
     this._authService.getLoggedUser().subscribe(user => {
       if (user.id) {
+        this.checkUserGotCompany(user.id);
         this.getUserProfile(user.id);
         this.isLoggedIn = true;
         this.loggedUser = user;
       } else {
         this.isUserLoggedIn();
       }
-    })
+    });
   }
 
   private getUserProfile(id: string) {
