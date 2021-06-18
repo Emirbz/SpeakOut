@@ -100,7 +100,7 @@ export class NavbarComponent implements OnInit {
 
   checkUserGotCompany(id: string | undefined) {
     this.companyService.getCompanyByUserId(id).subscribe(company => {
-      if (company.companyId && company.companyId > 0) {
+      if (company.companyId && company.companyId > 0 && company.isValid) {
         // if user has already a company create offer is displayed
         this.hasCompany = true;
         localStorage.setItem('USER_ROLE', 'RECRUITER')
@@ -147,4 +147,7 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  isRecruiter() {
+return localStorage.getItem('USER_ROLE') === 'RECRUITER'
+  }
 }

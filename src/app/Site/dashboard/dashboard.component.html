@@ -15,7 +15,8 @@
 
             <div class="tab-content">
               <div class="tab-pane fade in active" id="best" role="tabpanel">
-                <div *ngFor="let j of loadedJobs" class="ss_featured_products">
+                <ng-container *ngFor="let j of loadedJobs">
+                <div *ngIf="j?.isValid" class="ss_featured_products">
                   <div class="">
                     <div class="item" data-hash="zero">
                       <div class="jp_job_post_main_wrapper_cont">
@@ -63,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-
+                </ng-container>
 
               </div>
 

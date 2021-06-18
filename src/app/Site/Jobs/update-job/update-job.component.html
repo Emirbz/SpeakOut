@@ -54,8 +54,8 @@
             <select (change)="resetSelect('CATEGORY')" [class.is-invalid]="isFormSubmitted && jobCategoryError"
                     formControlName="categorie">
               <ng-container *ngFor="let js of jobCategory; let i =index">
-                <option *ngIf="i===0" disabled selected> {{js}}</option>
-                <option *ngIf="i>0"> {{js}}</option>
+                <option  *ngIf="i===0"  > {{js}}</option>
+                <option [selected]="selectedCategory(js)" *ngIf="i>0"> {{js}}</option>
               </ng-container>
             </select>
             <div *ngIf="isFormSubmitted && jobCategoryError" class="has-error">
@@ -66,8 +66,8 @@
             <select (change)="resetSelect('SALARY')" [class.is-invalid]="isFormSubmitted && jobSalaryError"
                     formControlName="salaire">
               <ng-container *ngFor="let js of jobSalary; let i =index">
-                <option *ngIf="i===0" disabled selected> {{js}}</option>
-                <option *ngIf="i>0"> {{js}}</option>
+                <option *ngIf="i===0" disabled > {{js}}</option>
+                <option [selected]="selectedSalary(js)"  *ngIf="i>0"> {{js}}</option>
               </ng-container>
             </select>
             <div *ngIf="isFormSubmitted && jobSalaryError" class="has-error">
@@ -88,12 +88,15 @@
           <div *ngIf="isFormSubmitted && formError('jobDescription','minlength')" class="has-error">
             <label class="control-label">Description must be at least 50 characters long.</label>
           </div>
+          <div *ngIf="isFormSubmitted && formError('jobDescription','maxlength')" class="has-error">
+            <label class="control-label">Description must be  less 200 characters long.</label>
+          </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="jp_adp_choose_resume_bottom_btn_post">
             <ul>
-              <li><a (click)="updateOffer()">
-                <i class="fa fa-plus-circle"></i>&nbsp; Update the job</a></li>
+              <li><a style="cursor: pointer" (click)="updateOffer()">
+                <i class="fa fa-plus-circle" ></i>&nbsp; Update the job</a></li>
             </ul>
           </div>
         </div>

@@ -10,13 +10,19 @@ import {AuthentificationService} from '../../../Services/authentification.servic
 })
 export class CardMyOffersComponent implements OnInit {
   @Input() jobOffer: JobOffer;
+  @Input() deletedJobId: string;
+
+
   @Output() jobApplicantsEvent = new EventEmitter<User[]>();
+  @Output() deleteJobEvent = new EventEmitter<JobOffer>();
+
 
 
   constructor(private  authentificationService: AuthentificationService) {
   }
 
   ngOnInit(): void {
+
   }
 
   displayApplicants() {
@@ -38,6 +44,12 @@ export class CardMyOffersComponent implements OnInit {
   getUserResume(user: User) {
 
     return user.files?.filter(f => f.type === 'cv')[user.files?.filter(f => f.type === 'cv').length - 1];
+
+
+  }
+
+  openModalDelete(jobOffer: JobOffer) {
+    this.deleteJobEvent.emit(jobOffer);
 
 
   }

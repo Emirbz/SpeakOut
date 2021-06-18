@@ -36,7 +36,7 @@ export class JobsListComponent implements OnInit {
     const title = this.route.snapshot.queryParamMap.get('title');
 
     this.jobOfferService.getAllJobOffers(title).subscribe(jobs => {
-      this.loadedJobs = jobs.map(job => {
+      this.loadedJobs = jobs.filter(j => j.isValid).map(job => {
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);
         return job;

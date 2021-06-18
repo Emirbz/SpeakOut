@@ -54,7 +54,8 @@
               <div class="owl-stage-outer">
                 <div class="owl-stage"
                 >
-                  <div *ngFor="let job of loadedJobs " class="owl-item active"
+                  <ng-container *ngFor="let job of loadedJobs ">
+                  <div *ngIf="job?.isValid" class="owl-item active"
                        style="width: 750px; margin-right: 20px;">
                     <div class="item">
                       <div class="row">
@@ -91,6 +92,7 @@
                       </div>
                     </div>
                   </div>
+                  </ng-container>
 
                 </div>
               </div>

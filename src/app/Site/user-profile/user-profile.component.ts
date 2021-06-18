@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   loggedUser: User;
   isUpdateUserFormActive: boolean = false;
   isCreateCompanyActive: boolean = false;
+  isUpdateCompanyActive: boolean = false;
   hasCompany: boolean = false;
   loggedUserCompany: Company;
   isProfilePicUploading: boolean = false;
@@ -37,6 +38,10 @@ export class UserProfileComponent implements OnInit {
   userResume: File;
   listApplicants: User[] = [];
   displayApplicantsList: boolean = false;
+  jobOfferToDelete: JobOffer;
+  deletedJobOfferId: string;
+  deleteCompanyId: string;
+  companyToDelete: Company;
 
   constructor(
     private authenticationService: AuthentificationService,
@@ -52,11 +57,12 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getLoggedUser();
 
+
   }
 
   checkUserGotCompany(id: string | undefined) {
     this.companyService.getCompanyByUserId(id).subscribe(company => {
-      if (company.companyId && company.companyId > 0) {
+      if (company.companyId && company.companyId > 0 && company.isValid) {
         // if user has already a company its iformation is displayed
         this.hasCompany = true;
         this.loggedUser.hasCompany = true;
@@ -163,6 +169,7 @@ export class UserProfileComponent implements OnInit {
       this.userResume = uploadedFile
       this.loggedUser.files?.push(uploadedFile);
       this.authenticationService.setLoggedUser(this.loggedUser)
+      this.toastr.success('Resume added', 'Your resume  has been added successfully');
     })
 
 
@@ -184,6 +191,7 @@ export class UserProfileComponent implements OnInit {
     this.authenticationService.getLoggedUser().subscribe(user => {
       if (user.id) {
         this.loggedUser = user;
+        console.log(this.loggedUser)
         this.checkUserGotCompany(user.id);
         this.getUserResume(user);
         this.getUserProfile(user.id)
@@ -199,8 +207,7 @@ export class UserProfileComponent implements OnInit {
 
   private getUserProfile(id: string | undefined) {
     this.authenticationService.getUserProfile(id).subscribe(user => {
-      this.loggedUser = user;
-
+      //  this.loggedUser = user;
       if (!user.isActive) {
         // if users has not completed his profile, the form is shown
         this.isUpdateUserFormActive = true;
@@ -213,7 +220,7 @@ export class UserProfileComponent implements OnInit {
   private loadCompanyOffers() {
 
     this.jobOfferService.getAllJobOffers(null).subscribe(jobOffers => {
-      this.loadedCompanyOffers = jobOffers.filter(j => j.companyId === this.loggedUserCompany.companyId).map(job => {
+      this.loadedCompanyOffers = jobOffers.filter(j => (j.companyId === this.loggedUserCompany.companyId && j.isValid)).map(job => {
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);
         return job;
@@ -225,7 +232,7 @@ export class UserProfileComponent implements OnInit {
 
   private loadUserApplies() {
     this.jobApplyService.getAllJobApplies().subscribe(jobApply => {
-      this.loadedUserApplies = jobApply.filter(j => j.userId === this.loggedUser.id);
+      this.loadedUserApplies = jobApply.filter(j => j.userId === this.loggedUser.id && j.isValid);
     })
 
   }
@@ -234,5 +241,65 @@ export class UserProfileComponent implements OnInit {
     this.jobApplyService.getJobApplyByJobOffer(job.jobId).subscribe(jobApply => {
       job.jobApply = jobApply;
     })
+  }
+
+  displayModalDeleteJob(jobOffer: JobOffer) {
+    this.jobOfferToDelete = jobOffer;
+
+
+  }
+
+  displayModalDeleteCompany(company: Company) {
+    this.companyToDelete = company;
+    console.log(this.companyToDelete)
+
+
+  }
+
+  deleteItem($event: string, module: string) {
+    if (module === 'jobOffer') {
+      this.deletedJobOfferId = $event;
+      setTimeout(() => {
+        this.loadedCompanyOffers = this.loadedCompanyOffers.filter(j => j.jobId + '' !== $event);
+      }, 1000);
+
+    } else {
+
+      this.deleteCompanyId = $event;
+      setTimeout(() => {
+        this.hasCompany = false;
+        this.loggedUser.hasCompany = false;
+        localStorage.removeItem('USER_ROLE');
+        this.loggedUser.hasCompany = false;
+        localStorage.setItem('user', JSON.stringify(this.loggedUser));
+        this.loggedUserCompany = undefined as any;
+        this.loadedCompanyOffers = [];
+        this.loadUserApplies();
+
+      }, 1000)
+    }
+
+  }
+
+  deleteResume() {
+    console.log(this.loggedUser);
+    const listOfFiles = this.loggedUser.files?.filter(f => f.type === 'cv') as File[];
+    listOfFiles.forEach((file, i) => {
+      this.fileService.deleteFile(file).subscribe(() => {
+
+        this.hasResume = false;
+        this.loggedUser.hasResume = false;
+        this.userResume = undefined as any
+        this.loggedUser.files = this.loggedUser.files?.filter(f => f.type !== 'cv') as File[];
+        localStorage.setItem('user', JSON.stringify(this.loggedUser));
+        if (i === listOfFiles.length - 1) {
+          this.toastr.success('Resume deleted', 'Your resume  has been deleted successfully');
+
+        }
+
+      })
+
+    })
+
   }
 }

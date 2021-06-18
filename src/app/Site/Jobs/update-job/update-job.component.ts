@@ -59,20 +59,15 @@ export class UpdateJobComponent implements OnInit {
       localisation: ['', Validators.required],
       salaire: [this.jobSalary, Validators.required],
       categorie: [this.jobCategory, Validators.required],
-      jobDescription: ['', Validators.compose([Validators.required, Validators.minLength(50)])],
+      jobDescription: ['', Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(200)])],
     });
 
   }
 
   patchJobOfferFormValues() {
-    const selectedCategory = this.jobCategory.find(item => item === this.loadedJobOffer.categorie);
-    const selectedSalary = this.jobSalary.find(item => item === this.loadedJobOffer.salaire);
 
-    console.log(selectedCategory)
-    console.log(selectedSalary)
     this.offerFormGroup.patchValue({
-      salaire: selectedSalary,
-      categorie: selectedCategory,
+
       jobDescription: this.loadedJobOffer?.jobDescription,
       localisation: this.loadedJobOffer?.localisation,
       title: this.loadedJobOffer?.title,
@@ -89,20 +84,19 @@ export class UpdateJobComponent implements OnInit {
     const jobId = this.route.snapshot.paramMap.get('id');
 
     // check whenever default job salary value is still selected
-    if (this.offerFormGroup.value.salaire instanceof Array) {
-      this.jobSalaryError = true;
+
+    if (!this.jobCategory.find(item => item === this.offerFormGroup.value.categorie)) {
+      this.jobCategoryError = true;
     }
     // check whenever default job category value is still selected
-    if (this.offerFormGroup.value.categorie instanceof Array) {
-      this.jobCategoryError = true;
+    if (!this.jobSalary.find(item => item === this.offerFormGroup.value.salaire)) {
+      this.jobSalaryError = true;
     }
 
     this.isFormSubmitted = true;
 
     // check if form is valid
-    if (this.offerFormGroup.valid
-      && !(this.offerFormGroup.value.salaire instanceof Array
-        && !(this.offerFormGroup.value.categorie instanceof Array))) {
+    if (this.offerFormGroup.valid) {
 
       // get form value and cast is as jobOffer
       const jobOfferToSave = {...this.offerFormGroup.value} as JobOffer;
@@ -124,9 +118,24 @@ export class UpdateJobComponent implements OnInit {
         // on success navigate to job offers list
         this.router.navigate(['/jobs']);
       })
+    } else {
+      this.findInvalidControls();
     }
 
   }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.offerFormGroup.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+        console.log(name)
+      }
+    }
+
+  }
+
 
   formError(attribute: string, validator: string) {
     return this.offerFormGroup.get(attribute)?.hasError(validator);
@@ -142,5 +151,22 @@ export class UpdateJobComponent implements OnInit {
         this.jobSalaryError = false;
         break;
     }
+  }
+
+  selectedSalary(js: string) {
+    if (this.loadedJobOffer) {
+      return this.loadedJobOffer.salaire === js;
+    }
+    return false;
+
+
+  }
+
+  selectedCategory(js: string) {
+    if (this.loadedJobOffer) {
+      return this.loadedJobOffer.categorie === js;
+    }
+    return false;
+
   }
 }

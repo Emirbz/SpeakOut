@@ -60,6 +60,7 @@ export class CreateCompanyComponent implements OnInit {
         this.hasCompanyEvent.emit(true);
         this.toastr.success('Company created', 'Your Company have been created successfully');
         localStorage.setItem('USER_ROLE', 'RECRUITER')
+
       })
     }
 

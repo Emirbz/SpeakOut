@@ -94,7 +94,8 @@
             <div class="tab-content">
               <div class="tab-pane fade in active" id="grid">
                 <div class="row">
-                  <div *ngFor="let c of loadedCompanies" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <ng-container *ngFor="let c of loadedCompanies">
+                  <div *ngIf="c?.isValid"  class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
                       <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper">
                         <div class="row">
@@ -125,12 +126,13 @@
                     </div>
                   </div>
 
-
+                  </ng-container>
                 </div>
               </div>
               <div class="tab-pane fade" id="list">
                 <div class="row">
-                  <div *ngFor="let c of loadedCompanies" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <ng-container *ngFor="let c of loadedCompanies">
+                  <div *ngIf="c?.isValid" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
                       <div class="jp_job_post_main_wrapper">
                         <div class="row">
@@ -161,7 +163,7 @@
 
                     </div>
                   </div>
-
+                  </ng-container>
 
                 </div>
               </div>

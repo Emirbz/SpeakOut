@@ -1,9 +1,15 @@
-<div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
+<div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px"
+     [id]="jobOffer?.jobId"
+     [ngClass]="deletedJobId === jobOffer?.jobId+''  ? 'animated bounceOutUp' : ''"
+>
 
   <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v" style="height: 275px">
     <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
       <ul>
-        <li><a><i class="fa fa-trash-o"></i></a><a class="edit" [routerLink]="['/jobs/update/',jobOffer?.jobId]"><i class="fa fa-pencil"></i></a></li>
+        <li data-toggle="modal" data-target="#delete-modal" style="cursor: pointer">
+          <a><i class="fa fa-trash-o"  (click)="openModalDelete(jobOffer)"></i></a>
+          <a class="edit" [routerLink]="['/jobs/update/',jobOffer?.jobId]"><i class="fa fa-pencil"></i></a>
+        </li>
 
       </ul>
     </div>

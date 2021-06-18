@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   loadJobOffers() {
     this.jobOfferService.getAllJobOffers(null).subscribe(jobs => {
-      this.loadedJobs = jobs.map(job => {
+      this.loadedJobs = jobs.filter(j => j.isValid).map(job => {
 
         // add list of jobApply to for each jobOffer
         this.loadJobAppliesByJob(job);

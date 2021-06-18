@@ -32,7 +32,8 @@
     <div (click)="changeTab()" *ngIf="!hasCompany" [class.active]="selectedTab===1" class="taeb">Candidatures</div>
   </div>
 </div>
-<div *ngIf="!isUpdateUserFormActive && !isCreateCompanyActive && selectedTab===0" [ngClass]="profileClass"
+<div *ngIf="!isUpdateCompanyActive && !isCreateCompanyActive && !isUpdateUserFormActive &&  selectedTab===0"
+     [ngClass]="profileClass"
      class="jp_cp_profile_main_wrapper"
      style="padding-top: 20px">
   <div class="container main-container">
@@ -64,8 +65,12 @@
             <p><i class="fa fa-birthday-cake pl-"></i>&nbsp; {{loggedUser?.dateOfBirth | date: 'longDate'}}</p>
             <div *ngIf="!hasCompany " class="jp_cp_rd_wrapper">
               <ul>
-                <li ><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Upload Resume</a></li>
-                <li *ngIf="hasResume"><a class="view-resume" [href]="userResume?.filePath" target="_blank"><i class="fa fa-eye"></i> View resume</a></li>
+                <li *ngIf="!hasResume"><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Upload Resume</a></li>
+                <li *ngIf="hasResume"><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Update Resume</a></li>
+                <li *ngIf="hasResume"><a class="view-resume" [href]="userResume?.filePath" target="_blank"><i
+                  class="fa fa-eye"></i> View resume</a></li>
+                <li (click)="deleteResume()" *ngIf="hasResume"><a  class="delete-resume"><i
+                  class="fa fa-trash"></i> Delete resume</a></li>
                 <input #cvInput (change)="uploadResume($event)" accept="application/pdf" style="display: none"
                        type="file">
               </ul>
@@ -157,18 +162,28 @@
         </div>
 
         <!-- Company details -->
-        <div *ngIf="hasCompany" class="jp_cp_right_side_wrapper">
+        <div *ngIf="hasCompany" [id]="loggedUserCompany?.companyId" #companyDiv
+             [ngClass]="companyDiv.id === deleteCompanyId ? 'animated fadeOut' :''  " class="jp_cp_right_side_wrapper">
           <div class="jp_cp_right_side_inner_wrapper">
             <h2 class="inline-block">Comapny DETAILS</h2>
             <div class="jp_navi_right_btn_wrapper multiple-buttons inline-block  " style="width: 38%">
 
 
-              <a class=" button  company-button" style="width: 40%;"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit
+              <a (click)="this.isUpdateCompanyActive =true" class=" button  company-button"
+                 style="width: 40%; cursor: pointer"><i
+                class="fa fa-pencil"></i>&nbsp;&nbsp;Edit
+
 
               </a>
-              <a class=" button  edit-button" style="width: 40%;"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete
+              <a (click)="displayModalDeleteCompany(loggedUserCompany)" class=" button  edit-button" data-toggle="modal"
+                 data-target="#delete-modal"
+                 style="width: 40%; cursor: pointer"><i class="fa fa-trash fadeou"></i>&nbsp;&nbsp;Delete
+
 
               </a>
+              <app-delete-modal (deletedItemId)="deleteItem($event,'company')" *ngIf="companyToDelete"
+                                [company]="companyToDelete" [module]="'company'"></app-delete-modal>
+
 
             </div>
             <table>
@@ -221,8 +236,17 @@
           <img *ngIf="loadedCompanyOffers.length===0" alt="no data" class="not-found"
                src="assets/images/content/no-data.png">
           <div class="row">
-            <app-card-my-offers (jobApplicantsEvent)="displayApplicants($event)" *ngFor="let j of loadedCompanyOffers"
-                                [jobOffer]="j"></app-card-my-offers>
+            <ng-container *ngFor="let j of loadedCompanyOffers">
+              <app-card-my-offers *ngIf="j?.isValid" (deleteJobEvent)="displayModalDeleteJob($event)"
+                                  (jobApplicantsEvent)="displayApplicants($event)"
+                                  [jobOffer]="j"
+                                  [deletedJobId]="deletedJobOfferId+''"
+
+              ></app-card-my-offers
+              >
+            </ng-container>
+            <app-delete-modal (deletedItemId)="deleteItem($event,'jobOffer')" *ngIf="jobOfferToDelete"
+                              [jobOffer]="jobOfferToDelete" [module]="'jobOffer'"></app-delete-modal>
           </div>
         </div>
 
@@ -232,7 +256,7 @@
   </div>
 </div>
 <div *ngIf="selectedTab === 1 && !hasCompany" [ngClass]="companyOffersClass"
-     class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
   <div class="container main-container" style="margin-bottom: 61px;">
     <div class="tab-content">
 
@@ -259,7 +283,7 @@
     <div class="ss_featured_products">
 
 
-      <app-list-applicants (closeEvent)="closeApplicants()"  [listCandidates]="listApplicants"></app-list-applicants>
+      <app-list-applicants (closeEvent)="closeApplicants()" [listCandidates]="listApplicants"></app-list-applicants>
 
     </div>
 
@@ -271,14 +295,22 @@
 <!-- --------- -->
 
 <app-update-user (userUpdatedEvent)=" isUpdateUserFormActive=$event"
-                 *ngIf="isUpdateUserFormActive && !isCreateCompanyActive"
+                 *ngIf="isUpdateUserFormActive && !isCreateCompanyActive && !isUpdateCompanyActive"
                  [loggedUser]="loggedUser"></app-update-user>
 
 <app-create-company (companyUpdatedEvent)=" isCreateCompanyActive=$event"
                     (hasCompanyEvent)="$event===true? checkUserGotCompany(loggedUser.id) : ''"
-                    *ngIf="!isUpdateUserFormActive && isCreateCompanyActive"
+                    *ngIf="!isUpdateUserFormActive && isCreateCompanyActive && !isUpdateUserFormActive"
 
                     [loggedUser]="loggedUser">
 
 </app-create-company>
+
+<app-update-company [companyToEdit]="loggedUserCompany" (companyUpdatedEvent)=" isUpdateCompanyActive=$event"
+                    (updatedCompanyEvent)="loggedUserCompany = $event"
+                    *ngIf="!isUpdateUserFormActive && isUpdateCompanyActive && !isUpdateUserFormActive"
+
+                    [loggedUser]="loggedUser">
+
+</app-update-company>
 

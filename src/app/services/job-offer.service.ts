@@ -31,16 +31,16 @@ export class JobOfferService {
   }
 
   createJobOffer(newJobOffer: JobOffer): Observable<JobOffer> {
-    return this._http.post<JobOffer>(`${this.jobOfferApi}/create?title=${newJobOffer.title}&localisation=${newJobOffer.localisation}&salaire=${newJobOffer.salaire}&userId=${newJobOffer.userId}&jobId=${newJobOffer.jobId}&categorie=${newJobOffer.categorie}&jobDescription=${newJobOffer.jobDescription}&`, {});
+    return this._http.post<JobOffer>(`${this.jobOfferApi}/create?title=${newJobOffer.title}&localisation=${newJobOffer.localisation}&salaire=${newJobOffer.salaire}&userId=${newJobOffer.userId}&jobId=${newJobOffer.jobId}&categorie=${newJobOffer.categorie}&jobDescription=${newJobOffer.jobDescription}&companyId=${newJobOffer.companyId}&isValid=true`, {});
   }
 
-  updateJobOffer(updatedJobOffer: JobOffer): Observable<JobOffer> {
+    updateJobOffer(updatedJobOffer: JobOffer): Observable<JobOffer> {
 
-    return this._http.put<JobOffer>(this.jobOfferApi, updatedJobOffer);
+    return this._http.put<JobOffer>(`${this.jobOfferApi}/update?title=${updatedJobOffer.title}&localisation=${updatedJobOffer.localisation}&salaire=${updatedJobOffer.salaire}&userId=${updatedJobOffer.userId}&jobId=${updatedJobOffer.jobId}&categorie=${updatedJobOffer.categorie}&jobDescription=${updatedJobOffer.jobDescription}&companyId=${updatedJobOffer.companyId}&isValid=true`, {});
   }
 
-  deleteJobOffer(jobOfferId: string): Observable<JobOffer> {
+  deleteJobOffer(jobOfferId: number | undefined): Observable<JobOffer> {
 
-    return this._http.delete<JobOffer>(`${this.jobOfferApi}/byId?id=${jobOfferId}`);
+    return this._http.delete<JobOffer>(`${this.jobOfferApi}/deleteJobOffer?jobId=${jobOfferId}`);
   }
 }

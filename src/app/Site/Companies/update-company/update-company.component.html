@@ -1,5 +1,5 @@
-<div class="jp_adp_main_section_wrapper">
-  <div class="container">
+<div class="jp_adp_main_section_wrapper ">
+  <div class="container update-company">
     <form [formGroup]="companyFormGroup">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -61,10 +61,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 
-        <a (click)="resetForm()" *ngIf="loggedUser?.isActive" class=" button cancel-button"><i
+
+        <a (click)="updateCompany()" class=" button submit-button f-right">
+          <i class="fa fa-plus-circle"></i> Update </a>
+        <a (click)="resetForm()" class=" button cancel-button f-right"><i
           class="fa fa-times"></i>&nbsp; Cancel </a>
-        <a (click)="createCompany()" class=" button submit-button">
-          <i class="fa fa-plus-circle"></i> Create </a>
       </div>
 
     </form>

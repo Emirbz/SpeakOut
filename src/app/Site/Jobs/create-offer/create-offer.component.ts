@@ -38,7 +38,7 @@ export class CreateOfferComponent implements OnInit {
   getUserCompany() {
     const user = JSON.parse(<string>localStorage.getItem('user')) as User;
     this.companyService.getCompanyByUserId(user.id).subscribe(company => {
-      if (company.companyId && company.companyId > 0) {
+      if (company.companyId && company.companyId > 0 && company.isValid) {
         // if user has already a company create offer is displayed
         this.userCompany = company;
 
@@ -67,6 +67,7 @@ export class CreateOfferComponent implements OnInit {
   }
 
   createOffer() {
+    const user = JSON.parse(<string>localStorage.getItem('user')) as User;
     // check whenever default job salary value is still selected
     if (this.offerFormGroup.value.salaire instanceof Array) {
       this.jobSalaryError = true;
@@ -87,7 +88,7 @@ export class CreateOfferComponent implements OnInit {
       const jobOfferToSave = {...this.offerFormGroup.value} as JobOffer;
 
       // set static user
-      jobOfferToSave.userId = this.loggedUser.id as string;
+      jobOfferToSave.userId = user.id as string;
       // set random id
       jobOfferToSave.jobId = Math.floor(Math.random() * 145879) + 1;
       // set static company

@@ -30,7 +30,7 @@ export class CompaniesDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id') as string;
     // get all jobs offers and filter by company id
     this.jobOfferService.getAllJobOffers(null).subscribe(jobs => {
-      this.loadedJobs = jobs.filter(j => String(j.companyId) === id);
+      this.loadedJobs = jobs.filter(j => (String(j.companyId) === id && j.isValid));
 
     }, error => {
       console.log(error)

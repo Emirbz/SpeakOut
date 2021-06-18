@@ -300,17 +300,38 @@ main {
 }
 
 
-.jp_cp_rd_wrapper ul li .view-resume{
-  margin-top:15px;
-  float: left;
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  background: #c6a817;
-  color: #ffffff;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  transition: all .5s;
+.jp_cp_rd_wrapper ul li {
+  .view-resume {
+    margin-top: 15px;
+    float: left;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background: #c6a817;
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all .5s;
+  }
+  .delete-resume{
+
+    margin-top: 15px;
+    float: left;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background: #bf2444;
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all .5s;
+  }
+}
+
+.jp_cp_rd_wrapper li {
+  cursor:pointer !important;
 }

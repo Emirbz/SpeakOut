@@ -33,12 +33,12 @@ export class CompanyService {
 
   updateCompany(updatedCompany: Company): Observable<Company> {
 
-    return this._http.put<Company>(`${this.companyApi}/update?companyId=${updatedCompany.companyId}&business=${updatedCompany.business}&establishmentDate=${updatedCompany.establishmentDate}&profileDescription=${updatedCompany.profileDescription}&isValid=isValid&companyName=${updatedCompany.companyName}&companyUrl=${updatedCompany.companyUrl}`, {});
+    return this._http.put<Company>(`${this.companyApi}/update?companyId=${updatedCompany.companyId}&business=${updatedCompany.business}&establishmentDate=${updatedCompany.establishmentDate}&profileDescription=${updatedCompany.profileDescription}&isValid=isValid&companyName=${updatedCompany.companyName}&companyUrl=${updatedCompany.companyUrl}&localisation=${updatedCompany?.localisation}`, {});
   }
 
-  deleteCompany(companyId: string): Observable<Company> {
+  deleteCompany(companyId: number | undefined): Observable<Company> {
 
-    return this._http.delete<Company>(`${this.companyApi}/byId?id=${companyId}`);
+    return this._http.delete<Company>(`${this.companyApi}/delete?CompanyId=${companyId}`);
   }
 
 

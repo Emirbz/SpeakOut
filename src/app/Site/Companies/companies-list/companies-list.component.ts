@@ -23,7 +23,7 @@ export class CompaniesListComponent implements OnInit {
 
   private loadCompanies() {
     this.companyService.getAllCompanies().subscribe(companies => {
-      this.loadedCompanies = companies.map(c => {
+      this.loadedCompanies = companies.filter(c => c.isValid).map(c => {
         // add list of jobApply to for each jobOffer
         c.jobOffer = this.loadedJobOffers.filter(j => j.companyId === c.companyId);
         return c;
@@ -35,7 +35,7 @@ export class CompaniesListComponent implements OnInit {
 
   private loadJobOffer() {
     this.jobOfferService.getAllJobOffers(null).subscribe(jobOffers => {
-      this.loadedJobOffers = jobOffers;
+      this.loadedJobOffers = jobOffers.filter(j => j.isValid);
       this.loadCompanies();
     })
 

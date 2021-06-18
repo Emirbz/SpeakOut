@@ -78,12 +78,13 @@ export class UpdateUserComponent implements OnInit {
 
   patchUserFormValues() {
     const civility = this.civility.find(item => item === this.loggedUser.civility);
+    console.log(civility)
 
     this.userFormGroup.patchValue({
       dateOfBirth: this.formatDate(this.loggedUser?.dateOfBirth),
       adresse: this.loggedUser?.adresse,
       city: this.loggedUser?.city,
-      civility: this.loggedUser?.civility,
+      civility: 'Mr',
       country: this.loggedUser?.country,
       aboutMe: this.loggedUser?.aboutMe,
       firstName: this.loggedUser?.firstName,

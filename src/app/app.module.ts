@@ -24,6 +24,8 @@ import {CardMyOffersComponent} from './Site/Jobs/card-my-offers/card-my-offers.c
 import {CardMyApplicationsComponent} from './Site/Jobs/card-my-applications/card-my-applications.component';
 import {ListApplicantsComponent} from './Site/Jobs/list-applicants/list-applicants.component';
 import {UpdateJobComponent} from './Site/Jobs/update-job/update-job.component';
+import {SharedModule} from './shared/shared.module';
+import {UpdateCompanyComponent} from './Site/Companies/update-company/update-company.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -46,6 +48,7 @@ export function tokenGetter() {
     CardMyApplicationsComponent,
     ListApplicantsComponent,
     UpdateJobComponent,
+    UpdateCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ export function tokenGetter() {
       }//
     }),
     ReactiveFormsModule,
+    SharedModule,
   ],
 
   providers: [SocialAuthService, {
