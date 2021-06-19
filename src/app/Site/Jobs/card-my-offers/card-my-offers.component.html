@@ -21,7 +21,7 @@
       <h4>{{jobOffer?.title}}</h4>
       <p>{{jobOffer?.localisation}}</p>
       <ul>
-        <li (click)="displayApplicants()" class="applicants"><a
+        <li style="cursor: pointer" (click)="displayApplicants()" class="applicants"><a
           [class.empty]="jobOffer?.jobApply?.length===0">{{jobOffer?.jobApply?.length}} Applicants</a>
         </li>
 

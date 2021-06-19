@@ -18,6 +18,7 @@
   text-transform: uppercase;
   border-radius: 10px;
   transition: all 0.5s;
+  cursor: pointer;
 
   &.submit-button {
     border: 1px solid #f36969;
@@ -39,4 +40,11 @@
 }
 .f-right{
   float:right;
+}
+
+
+.button:hover{
+  color: white!important;
+
+
 }

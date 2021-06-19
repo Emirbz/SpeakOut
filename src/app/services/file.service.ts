@@ -24,5 +24,10 @@ export class FileService {
     return this._http.post<File>(`${environment.storage}/upload`, formData);
   }
 
+  deleteFile(file: File): Observable<File> {
+    // tslint:disable-next-line:max-line-length
+    return this._http.post<File>(`${environment.storage}/DeleteFile?containerName=candidates&directoryName=images&fileName=${file.fileName}`, {});
+  }
+
 
 }

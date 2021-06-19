@@ -33,7 +33,18 @@
             </div>
           </div>
 
-
+          <div class="jp_adp_form_wrapper">
+            <select (change)="resetCivilitySelect()" [class.is-invalid]="isFormSubmitted && personalityError"
+                    formControlName="personnality">
+              <ng-container *ngFor="let p of personality; let i =index">
+                <option *ngIf="i===0" disabled selected> {{p}}</option>
+                <option *ngIf="i>0"> {{p}}</option>
+              </ng-container>
+            </select>
+            <div *ngIf="isFormSubmitted && personalityError" class="has-error">
+              <label class="control-label">Personality is required</label>
+            </div>
+          </div>
           <div class="jp_adp_form_wrapper " style="padding-bottom: 1rem">
             <input [class.is-invalid]="isFormSubmitted && formError('adresse','required')" formControlName="adresse"
                    placeholder="Address" type="text">
@@ -41,6 +52,7 @@
               <label class="control-label">Address number is required</label>
             </div>
           </div>
+
 
 
         </div>

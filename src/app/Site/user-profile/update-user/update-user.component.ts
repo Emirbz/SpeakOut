@@ -17,6 +17,8 @@ export class UpdateUserComponent implements OnInit {
   civilityError: boolean = false;
   @Output() userUpdatedEvent = new EventEmitter<boolean>();
   @Input() loggedUser: User;
+  personality: string[] = [];
+  personalityError: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthentificationService,
@@ -40,12 +42,17 @@ export class UpdateUserComponent implements OnInit {
     // check whenever default job salary value is still selected
     if (this.userFormGroup.value.civility instanceof Array) {
       this.civilityError = true;
+      return;
+    }
+    if (this.userFormGroup.value.personality instanceof Array) {
+      this.personalityError = true;
+      return;
     }
 
     this.isFormSubmitted = true;
 
     // check if form is valid
-    if (this.userFormGroup.valid && !(this.userFormGroup.value.civility instanceof Array)) {
+    if (this.userFormGroup.valid) {
 
       // get form value and cast is as jobOffer
       const userToUpdate = {...this.userFormGroup.value} as User;
@@ -78,18 +85,19 @@ export class UpdateUserComponent implements OnInit {
 
   patchUserFormValues() {
     const civility = this.civility.find(item => item === this.loggedUser.civility);
-    console.log(civility)
+    const personality = this.personality.find(item => item === this.loggedUser.personnality);
 
     this.userFormGroup.patchValue({
       dateOfBirth: this.formatDate(this.loggedUser?.dateOfBirth),
       adresse: this.loggedUser?.adresse,
       city: this.loggedUser?.city,
-      civility: 'Mr',
+      civility: civility,
       country: this.loggedUser?.country,
       aboutMe: this.loggedUser?.aboutMe,
       firstName: this.loggedUser?.firstName,
       lastName: this.loggedUser?.lastName,
-      phoneNumber: this.loggedUser?.phoneNumber
+      phoneNumber: this.loggedUser?.phoneNumber,
+      personnality: personality
     });
   }
 
@@ -110,6 +118,7 @@ export class UpdateUserComponent implements OnInit {
   private userFormValidate() {
     // civility static attributes
     this.civility = ['Civility', 'Mr', 'Mrs'];
+    this.personality = ['Personality', 'Ambitious', 'Approachable', 'Articulate', 'Autonomous', 'Calm', 'Cheerful', 'Clever'];
 
     // init formBuilder validators
     this.userFormGroup = this.formBuilder.group({
@@ -122,6 +131,7 @@ export class UpdateUserComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
+      personnality: [this.personality, Validators.required],
     });
     this.patchUserFormValues();
   }

@@ -13,6 +13,8 @@ export class ListApplicantsComponent implements OnInit {
   @Input() listCandidates: User [];
   @Input() jobApply: JobApply;
   @Output() closeEvent = new EventEmitter<boolean>();
+  isAccepted: boolean = false;
+  selectedJobApply: JobApply | undefined;
 
 
   constructor(private jobApplyService: JobApplyService,
@@ -27,13 +29,22 @@ export class ListApplicantsComponent implements OnInit {
 
   }
 
-  updateJobApplyStatus(user: User, status: 'ACCEPTED' | 'DECLINED') {
+  openModalInterview(user: User) {
+    this.isAccepted = true;
+    this.selectedJobApply = user.selectedJobApply;
+  }
+
+  updateJobApplyStatus(jobApply: JobApply | undefined, status: 'ACCEPTED' | 'DECLINED') {
+
     // @ts-ignore
-    user.selectedJobApply.status = status;
+    jobApply.status = status;
     // @ts-ignore
-    this.jobApplyService.updateJobApply(user.selectedJobApply).subscribe(() => {
+    this.jobApplyService.updateJobApply(jobApply).subscribe(() => {
       this.toastr.success('Application status updated', 'The application has been ' + status.toLocaleLowerCase());
 
     })
+
   }
+
+
 }
