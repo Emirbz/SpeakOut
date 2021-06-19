@@ -26,6 +26,7 @@ import {ListApplicantsComponent} from './Site/Jobs/list-applicants/list-applican
 import {UpdateJobComponent} from './Site/Jobs/update-job/update-job.component';
 import {SharedModule} from './shared/shared.module';
 import {UpdateCompanyComponent} from './Site/Companies/update-company/update-company.component';
+import {NgxSimpleCountdownModule} from 'ngx-simple-countdown';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,24 +51,25 @@ export function tokenGetter() {
     UpdateJobComponent,
     UpdateCompanyComponent,
   ],
-  imports: [
-    BrowserModule,
-    NoopAnimationsModule,
-    AppRoutingModule,
-    CompnentModule,
-    HttpClientModule,
-    RouterModule,
-    SocialLoginModule,
-    ToastrModule.forRoot(),
+    imports: [
+        BrowserModule,
+        NoopAnimationsModule,
+        AppRoutingModule,
+        CompnentModule,
+        HttpClientModule,
+        RouterModule,
+        SocialLoginModule,
+        ToastrModule.forRoot(),
 
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-      }//
-    }),
-    ReactiveFormsModule,
-    SharedModule,
-  ],
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+            }//
+        }),
+        ReactiveFormsModule,
+        SharedModule,
+        NgxSimpleCountdownModule,
+    ],
 
   providers: [SocialAuthService, {
     provide: 'SocialAuthServiceConfig',

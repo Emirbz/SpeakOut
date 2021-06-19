@@ -9,12 +9,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" placeholder="Interview time"  onblur="(this.type='text')" onfocus="(this.type='datetime-local')" class="form-control" id="dob" min="{{todayDate() | date:'yyyy-MM-ddTHH:mm'}}">
+        <input id="meetingDate" #meetingDate type="text" placeholder="Interview time"  onblur="(this.type='text')" onfocus="(this.type='datetime-local')" class="form-control" min="{{todayDate() | date:'yyyy-MM-ddTHH:mm'}}">
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="confirmInterview()" >Confirm</button>
+        <button type="button" class="btn btn-primary" (click)="confirmInterview(meetingDate.value)" >Confirm</button>
       </div>
     </div>
   </div>

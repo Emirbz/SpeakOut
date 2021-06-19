@@ -30,8 +30,10 @@ export class InterviewModalComponent implements OnInit {
       + 'T' + date.toTimeString().slice(0, 5);
   }
 
-  confirmInterview() {
-    console.log(this.jobApply)
+  confirmInterview(date: string) {
+
+    // @ts-ignore
+    this.jobApply.applyDate = date;
     // @ts-ignore
     this.jobApplyService.updateJobApply(this.jobApply).subscribe(() => {
       this.applyConfirmed.emit(this.jobApply)

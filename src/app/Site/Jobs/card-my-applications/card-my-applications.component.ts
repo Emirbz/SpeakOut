@@ -16,4 +16,12 @@ export class CardMyApplicationsComponent implements OnInit {
     console.log(this.jobApply)
   }
 
+  onfinish() {
+    console.log('finish')
+  }
+
+  reformMeetingTime(applyDate: string) {
+    return (new Date(applyDate).getTime() / 1000) as number;
+
+  }
 }
