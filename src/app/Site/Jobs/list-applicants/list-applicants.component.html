@@ -28,6 +28,10 @@
                 <li *ngIf="u?.selectedJobApply?.status!=='DECLINED'"><a class="refuse cursor-pointer"
                                                                        (click)="updateJobApplyStatus(u?.selectedJobApply,'DECLINED')">Refuse</a>
                 </li>
+                <li *ngIf="u?.selectedJobApply?.status==='ACCEPTED'"><a
+                  style="width: 148px"
+                                                                        class="cursor-pointer"
+                                                                        (click)="generateMeeting(u)">Meeting interview</a></li>
               </ng-container>
             </ul>
           </div>

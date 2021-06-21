@@ -1,5 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {JobApply} from '../../../models/JobApply';
+import {User} from '../../../models/user';
+
+declare var JitsiMeetExternalAPI: any;
+
 
 @Component({
   selector: 'app-card-my-applications',
@@ -8,12 +12,15 @@ import {JobApply} from '../../../models/JobApply';
 })
 export class CardMyApplicationsComponent implements OnInit {
   @Input() jobApply: JobApply;
+  @Output() meetingEvent = new EventEmitter<boolean>();
+  @Output() jobApplyMeeting = new EventEmitter<JobApply>();
+  loggedUser: User;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log(this.jobApply)
+    this.getLoggedUser();
   }
 
   onfinish() {
@@ -24,4 +31,15 @@ export class CardMyApplicationsComponent implements OnInit {
     return (new Date(applyDate).getTime() / 1000) as number;
 
   }
+
+  generateMeeting() {
+  this.jobApplyMeeting.emit(this.jobApply);
+    this.meetingEvent.emit(true);
+  }
+
+  private getLoggedUser() {
+    this.loggedUser = JSON.parse(<string>localStorage.getItem('user'));
+  }
+
+
 }

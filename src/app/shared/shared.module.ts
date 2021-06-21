@@ -4,16 +4,19 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {DeleteModalComponent} from './modals/delete-modal/delete-modal.component';
 import {InterviewModalComponent} from './modals/interview-modal/interview-modal.component';
+import {JitsiFrameComponent} from './jitsi/jitsi-frame/jitsi-frame.component';
 
 
 @NgModule({
     declarations: [
         DeleteModalComponent,
-        InterviewModalComponent
+        InterviewModalComponent,
+        JitsiFrameComponent
     ],
   exports: [
     DeleteModalComponent,
-    InterviewModalComponent
+    InterviewModalComponent,
+    JitsiFrameComponent
   ],
     imports: [
         CommonModule,

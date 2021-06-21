@@ -42,6 +42,8 @@ export class UserProfileComponent implements OnInit {
   deletedJobOfferId: string;
   deleteCompanyId: string;
   companyToDelete: Company;
+  meetingStarted: boolean = false;
+  jobApplyMeeting: JobApply;
 
   constructor(
     private authenticationService: AuthentificationService,

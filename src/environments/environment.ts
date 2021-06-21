@@ -6,7 +6,11 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/v1',
-  storage: 'https://localhost:5001'
+  storage: 'https://localhost:5001',
+  jitsi: {
+    domain: 'meet.jit.si',
+    default_room_name: 'interview-'
+  }
 
 
 };

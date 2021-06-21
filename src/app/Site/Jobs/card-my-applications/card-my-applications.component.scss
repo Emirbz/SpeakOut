@@ -37,3 +37,28 @@
     background-color: #e0a812 !important;
     border-color: #e0a812;
   }
+
+
+  .status a {
+    width: 110px;
+    height: 30px;
+    float: right;
+    margin-right: 12px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+    background: #0e1427;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.5s;
+  }
+
+  .cursor-pointer{
+    cursor: pointer;
+  }
+
+  .my_apps_card{
+    height: 223px!important;
+    width: 100% !important;
+  }

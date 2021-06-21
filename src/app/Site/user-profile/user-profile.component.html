@@ -11,7 +11,7 @@
           <div class="jp_tittle_breadcrumb_main_wrapper">
             <div class="jp_tittle_breadcrumb_wrapper">
               <ul>
-                <li><a routerLink="/home">Home</a> <i class="fa fa-angle-right"></i></li>
+                <li><a routerLink="/user-profile">Profile</a> <i class="fa fa-angle-right"></i></li>
                 <li>Candidate profile</li>
               </ul>
             </div>
@@ -69,7 +69,7 @@
                 <li *ngIf="hasResume"><a (click)="cvInput.click()"><i class="fa fa-upload"></i> Update Resume</a></li>
                 <li *ngIf="hasResume"><a class="view-resume" [href]="userResume?.filePath" target="_blank"><i
                   class="fa fa-eye"></i> View resume</a></li>
-                <li (click)="deleteResume()" *ngIf="hasResume"><a  class="delete-resume"><i
+                <li (click)="deleteResume()" *ngIf="hasResume"><a class="delete-resume"><i
                   class="fa fa-trash"></i> Delete resume</a></li>
                 <input #cvInput (change)="uploadResume($event)" accept="application/pdf" style="display: none"
                        type="file">
@@ -270,8 +270,14 @@
           <img *ngIf="loadedUserApplies.length===0" alt="no data" class="not-found"
                src="assets/images/content/no-data.png">
           <div class="row">
+            <app-jitsi-frame *ngIf="meetingStarted" [jobApply]="jobApplyMeeting" [loggedUser]="loggedUser"
+                             (meetingEnded)="meetingStarted=false"></app-jitsi-frame>
 
-            <app-card-my-applications *ngFor="let j of loadedUserApplies" [jobApply]="j"></app-card-my-applications>
+            <ng-container *ngIf="!meetingStarted">
+              <app-card-my-applications (jobApplyMeeting)="jobApplyMeeting = $event"
+                                        (meetingEvent)="meetingStarted = $event" *ngFor="let j of loadedUserApplies"
+                                        [jobApply]="j"></app-card-my-applications>
+            </ng-container>
           </div>
         </div>
 
@@ -288,8 +294,14 @@
     <div class="ss_featured_products">
 
 
-      <app-list-applicants (closeEvent)="closeApplicants()" [listCandidates]="listApplicants"></app-list-applicants>
+      <app-list-applicants *ngIf="!meetingStarted" (closeEvent)="closeApplicants()" [listCandidates]="listApplicants"
 
+                           (jobApplyMeeting)="jobApplyMeeting = $event"
+                           (meetingEvent)="meetingStarted = $event"></app-list-applicants>
+      <div class="row" *ngIf="meetingStarted">
+        <app-jitsi-frame [jobApply]="jobApplyMeeting"  [loggedUser]="loggedUser"
+                         (meetingEnded)="meetingStarted=false"></app-jitsi-frame>
+      </div>
     </div>
 
 

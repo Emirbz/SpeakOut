@@ -1,15 +1,19 @@
 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
   <div class="jp_hiring_content_main_wrapper jp_hiring_content_main_wrapper_index_v">
-    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v" style="height: 223px">
+    <ul>
+      <li [class.declined]="jobApply?.status==='DECLINED'" [class.pending]="jobApply?.status==='PENDING'"
+          [class.accepted]="jobApply?.status==='ACCEPTED'" class="status"><a > {{jobApply.status}}</a>
+      </li>
+    </ul>
+    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v my_apps_card" >
       <img
         [src]="jobApply?.job?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobApply?.job?.company?.companyUrl"
         alt="hiring_img" class="company_image">
       <h4 [routerLink]="['/job/',jobApply?.jobId]" class="cursor-pointer">{{jobApply?.job?.title}}</h4>
       <p [routerLink]="['/companies/',jobApply?.job?.companyId]"
          class="cursor-pointer">{{jobApply?.job?.company?.companyName}}</p>
-      <ul>
-        <li [class.declined]="jobApply?.status==='DECLINED'" [class.pending]="jobApply?.status==='PENDING'"
-            [class.accepted]="jobApply?.status==='ACCEPTED'" class="applicants"><a> {{jobApply.status}}</a>
+      <ul *ngIf="jobApply?.status==='ACCEPTED'">
+        <li (click)="generateMeeting()"  class="applicants cursor-pointer"><a > Meeting interview</a>
         </li>
 
       </ul>

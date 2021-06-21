@@ -116,7 +116,7 @@ export class UpdateJobComponent implements OnInit {
       this.jobOfferService.updateJobOffer(jobOfferToSave).subscribe(() => {
         this.toastr.success('Job update', 'Your job have been updated successfully');
         // on success navigate to job offers list
-        this.router.navigate(['/jobs']);
+        this.router.navigate(['/user-profile']);
       })
     } else {
       this.findInvalidControls();

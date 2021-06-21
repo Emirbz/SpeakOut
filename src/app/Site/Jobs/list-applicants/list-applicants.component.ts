@@ -15,6 +15,8 @@ export class ListApplicantsComponent implements OnInit {
   @Output() closeEvent = new EventEmitter<boolean>();
   isAccepted: boolean = false;
   selectedJobApply: JobApply | undefined;
+  @Output() meetingEvent = new EventEmitter<boolean>();
+  @Output() jobApplyMeeting = new EventEmitter<JobApply>();
 
 
   constructor(private jobApplyService: JobApplyService,
@@ -47,4 +49,8 @@ export class ListApplicantsComponent implements OnInit {
   }
 
 
+  generateMeeting(u: User) {
+    this.jobApplyMeeting.emit(u.selectedJobApply);
+    this.meetingEvent.emit(true);
+  }
 }

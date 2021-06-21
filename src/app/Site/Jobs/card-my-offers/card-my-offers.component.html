@@ -7,13 +7,13 @@
     <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
       <ul>
         <li data-toggle="modal" data-target="#delete-modal" style="cursor: pointer">
-          <a><i class="fa fa-trash-o"  (click)="openModalDelete(jobOffer)"></i></a>
+          <a  (click)="openModalDelete(jobOffer)"><i class="fa fa-trash-o" ></i></a>
           <a class="edit" [routerLink]="['/jobs/update/',jobOffer?.jobId]"><i class="fa fa-pencil"></i></a>
         </li>
 
       </ul>
     </div>
-    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v center-elements">
+    <div class="jp_hiring_content_wrapper jp_hiring_content_wrapper_indx_v center-elements ">
 
       <img
         [src]="jobOffer?.company?.companyUrl === null ? 'images/content/hiring_img1.png' : jobOffer?.company?.companyUrl"
