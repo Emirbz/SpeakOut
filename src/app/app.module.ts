@@ -26,6 +26,7 @@ import {ListApplicantsComponent} from './Site/Jobs/list-applicants/list-applican
 import {UpdateJobComponent} from './Site/Jobs/update-job/update-job.component';
 import {SharedModule} from './shared/shared.module';
 import {UpdateCompanyComponent} from './Site/Companies/update-company/update-company.component';
+import { FileUploaderComponent } from './Site/user-profile/file-uploader/file-uploader.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -49,6 +50,7 @@ export function tokenGetter() {
     ListApplicantsComponent,
     UpdateJobComponent,
     UpdateCompanyComponent,
+    FileUploaderComponent,
   ],
     imports: [
         BrowserModule,

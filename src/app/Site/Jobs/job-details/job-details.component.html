@@ -44,7 +44,9 @@
               </div>
               <div class="jp_jop_overview_img_wrapper">
                 <div class="jp_jop_overview_img">
-                  <img alt="post_img" src="assets/images/content/job_post_img1.jpg">
+
+                  <img alt="post_img" [src]="loadedJobOffer?.company?.companyUrl">
+                  <!--img alt="post_img" src="assets/images/content/job_post_img1.jpg"-->
                 </div>
               </div>
               <div class="jp_job_listing_single_post_right_cont">

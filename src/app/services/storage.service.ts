@@ -34,4 +34,5 @@ export class StorageService {
   removeStorage() {
     window.localStorage.clear();
   }
+
 }

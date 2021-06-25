@@ -80,7 +80,7 @@
             <div class="profile-pic company-picture">
               <img *ngIf="!isCompanyPicUploading"
                    [src]="loggedUserCompany?.companyUrl!==null ? loggedUserCompany?.companyUrl: 'assets/images/content/job_post_img3.jpg'"
-                   alt="company pic">
+                   alt="company pic" style="width:80%">
               <img *ngIf="isCompanyPicUploading" [src]="companyPicPreview"
                    alt="profile pic">
               <ng-container>
